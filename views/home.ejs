@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wow Modular - Premium Furniture Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: hsl(30 100% 98%);
+      --fg-light: hsl(0 14% 21%);
+      --primary: hsl(26 27% 49%);
+      --primary-fg: hsl(0 0% 100%);
+      --secondary: hsl(30 48% 89%);
+      --accent: hsl(153 9% 42%);
+      --accent-fg: hsl(0 0% 100%);
+      --border: hsl(30 35% 85%);
+      --card: hsl(0 0% 100%);
+      --radius: 1.875rem;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-light);
+      color: var(--fg-light);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      width: 100%;
+    }
+
+    .section-padding {
+      padding: 5rem 1.5rem;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: rgba(250, 247, 244, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(215, 190, 165, 0.5);
+      z-index: 50;
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      color: var(--fg-light);
+      white-space: nowrap;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--fg-light);
+      font-weight: 500;
+      transition: color 0.3s;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    .cta-btn {
+      padding: 0.5rem 1.5rem;
+      border: 2px solid var(--primary);
+      border-radius: 2rem;
+      background: transparent;
+      color: var(--primary);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .cta-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: var(--fg-light);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 40;
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-menu nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .mobile-menu nav a {
+      padding: 0.75rem;
+      text-decoration: none;
+      color: var(--fg-light);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .mobile-menu nav a:hover {
+      color: var(--primary);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-carousel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(250, 247, 244, 0.4), rgba(250, 247, 244, 0.6));
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title .accent {
+      color: var(--primary);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      margin-bottom: 2rem;
+      color: var(--fg-light);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-btn {
+      padding: 1rem 3rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .hero-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Tagline */
+    .tagline {
+      background: var(--secondary);
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .tagline h2 {
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .tagline hr {
+      width: 150px;
+      border: none;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    /* Services */
+    .services {
+      background: var(--secondary);
+      position: relative;
+      padding: 5rem 0;
+    }
+
+    .services::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      right: 5%;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(145, 104, 76, 0.05);
+    }
+
+    .services::after {
+      content: '';
+      position: absolute;
+      bottom: 10%;
+      left: 5%;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(145, 104, 76, 0.05);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: rgba(51, 35, 35, 0.7);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+    }
+
+    .services-layout {
+      display: flex;
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .description-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 100px;
+      align-self: start;
+      flex: 0 0 35%;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      flex: 2 1 400px;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.5s ease-in-out;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 0.5s;
+      z-index: 0;
+    }
+
+    .service-card:hover::before,
+    .service-card.auto-hover::before {
+      opacity: 0.1;
+    }
+
+    .service-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-card:hover,
+    .service-card.auto-hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .service-icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      margin: 0 auto 1rem;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .service-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .service-card h3 {
+      font-size: clamp(0.875rem, 1.5vw, 1rem);
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
+      line-height: 1.3;
+    }
+
+    .description-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 100px;
+      align-self: start;
+    }
+
+    .description-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 100px;
+      align-self: start;
+    }
+
+    .description-card h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .description-card p {
+      color: rgba(51, 35, 35, 0.7);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-top: 1.5rem;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      color: rgba(51, 35, 35, 0.8);
+    }
+
+    .feature-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    /* Process */
+    .process {
+      background: var(--accent);
+      color: var(--accent-fg);
+      padding: 5rem 0;
+    }
+
+    .process .section-title,
+    .process .section-label {
+      color: white;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .process-step {
+      text-align: center;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .process-icon {
+      width: 5rem;
+      height: 5rem;
+      margin: 0 auto 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .process-step h3 {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Projects */
+    .projects {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .projects::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23916848' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      animation: fadeInUp 0.6s ease-out;
+      border: 4px solid white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      background: white;
+      clip-path: polygon(100% 0, 100% 100%, 0 0);
+      z-index: 2;
+    }
+
+    .project-image {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.1);
+    }
+
+    .project-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 2rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      color: white;
+    }
+
+    .project-number {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      width: 3rem;
+      height: 3rem;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--primary);
+      z-index: 2;
+    }
+
+    .project-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-card p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    /* About */
+    .about {
+      padding: 5rem 0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .benefit-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .benefit-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+    }
+
+    .benefit-icon {
+      width: 3rem;
+      height: 3rem;
+      background: rgba(145, 104, 76, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background: var(--accent);
+      color: white;
+      padding: 5rem 0;
+    }
+
+    .testimonials .section-title,
+    .testimonials .section-label {
+      color: white;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: var(--radius);
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .stars {
+      display: flex;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+      color: #ffd700;
+    }
+
+    .testimonial-card p {
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+    }
+
+    /* FAQ */
+    .faq {
+      background: var(--secondary);
+      padding: 5rem 0;
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.5rem 2rem;
+      background: none;
+      border: none;
+      text-align: left;
+      font-size: 1.125rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      padding: 0 2rem;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+      padding: 0 2rem 1.5rem;
+    }
+
+    .faq-item.open .faq-question svg {
+      transform: rotate(180deg);
+    }
+
+    .faq-question svg {
+      transition: transform 0.3s;
+    }
+
+    /* Contact */
+    .contact {
+      padding: 5rem 0;
+    }
+
+    .contact-grid {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      flex: 1 1 300px;
+      min-width: 280px;
+    }
+
+    .contact-form-wrapper {
+      background: white;
+      padding: 2rem 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      flex: 2 1 400px;
+    }
+
+    .contact-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .contact-icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .contact-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-card p {
+      color: rgba(51, 35, 35, 0.7);
+      line-height: 1.6;
+    }
+
+    .contact-form-wrapper {
+      background: white;
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      flex: 1;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid var(--border);
+      border-radius: 0.75rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    .file-upload-wrapper {
+      position: relative;
+    }
+
+    .file-upload-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      border: 2px dashed var(--border);
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: var(--bg-light);
+    }
+
+    .file-upload-label:hover {
+      border-color: var(--primary);
+      background: white;
+    }
+
+    .file-upload-label svg {
+      width: 24px;
+      height: 24px;
+      color: var(--primary);
+    }
+
+    .file-upload-input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .file-name {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--primary);
+    }
+
+    .submit-btn {
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--fg-light);
+      color: var(--bg-light);
+      padding: 3rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-col h4 {
+      margin-bottom: 1rem;
+      font-size: 1.125rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-col a {
+      color: var(--bg-light);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .footer-col a:hover {
+      opacity: 1;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .social-icon:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0.7;
+    }
+
+    /* WhatsApp Button */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 4rem;
+      height: 4rem;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+      z-index: 40;
+      transition: all 0.3s;
+    }
+
+    .whatsapp-btn:hover {
+      background: #20BD5A;
+      transform: scale(1.1);
+    }
+
+    .whatsapp-btn svg {
+      width: 2rem;
+      height: 2rem;
+      color: white;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      nav {
+        gap: 1rem;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+
+      .cta-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .services-layout,
+      .contact-grid {
+        flex-direction: column;
+      }
+
+      .description-card,
+      .contact-info {
+        flex: 1;
+        position: relative;
+        top: 0;
+        min-width: 100%;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+
+      .service-card {
+        min-height: 140px;
+        padding: 1rem 0.75rem;
+      }
+
+      .service-icon {
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .service-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cta-btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">Wow Modular</div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="cta-btn">Let's Talk</button>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero-carousel">
+      <div class="hero-slide active">
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&h=800&fit=crop" alt="Hero 1">
+      </div>
+      <div class="hero-slide">
+        <img src="https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=1200&h=800&fit=crop" alt="Hero 2">
+      </div>
+      <div class="hero-slide">
+        <img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?w=1200&h=800&fit=crop" alt="Hero 3">
+      </div>
+      <div class="hero-slide">
+        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&h=800&fit=crop" alt="Hero 4">
+      </div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+      <h1 class="hero-title">Every Detail,<br><span class="accent">Pure Excellence</span></h1>
+      <p class="hero-subtitle">Unlock the premium furniture and design services<br>that takes everything to the next level</p>
+      <button class="hero-btn">Explore Services</button>
+    </div>
+  </section>
+
+  <!-- Tagline -->
+  <section class="tagline">
+    <div class="container">
+      <h2>
+        <hr>
+        Delivering Expert Craftsmanship and Professional Service for Every Project
+        <hr>
+      </h2>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services section-padding" id="services">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Our Services</p>
+        <h2 class="section-title">Comprehensive Furniture Solutions</h2>
+        <p class="section-desc">From design to installation, we provide end-to-end services tailored to your needs</p>
+      </div>
+      <div class="services-layout">
+        <div class="description-card">
+          <h3>Complete Furniture Solutions for Your Space</h3>
+          <p>We provide comprehensive furniture services from concept to installation. Our team specializes in creating custom designs that reflect your style while ensuring the highest quality craftsmanship.</p>
+          <p>Whether you need a complete home makeover or specific furniture pieces, we deliver professional results that exceed expectations.</p>
+          <ul class="feature-list">
+            <li>
+              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Custom Design & Build
+            </li>
+            <li>
+              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Expert Installation
+            </li>
+            <li>
+              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Full Consultation & Support
+            </li>
+          </ul>
+        </div>
+        
+        <div class="services-grid">
+          <div class="service-card" data-image="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <h3>Custom<br>Design</h3>
+          </div>
+          <div class="service-card" data-image="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=400&h=400&fit=crop">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <h3>Installation</h3>
+          </div>
+          <div class="service-card" data-image="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&h=400&fit=crop">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+            </div>
+            <h3>Interior<br>Styling</h3>
+          </div>
+          <div class="service-card" data-image="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400&h=400&fit=crop">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <h3>Repair &<br>Maintenance</h3>
+          </div>
+          <div class="service-card" data-image="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=400&fit=crop">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>Consultation</h3>
+          </div>
+          <div class="service-card" data-image="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400&h=400&fit=crop">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <h3>Renovation</h3>
+          </div>
+          <div class="service-card" data-image="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=400&fit=crop">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            </div>
+            <h3>Sourcing</h3>
+          </div>
+          <div class="service-card" data-image="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=400&h=400&fit=crop">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <h3>Delivery<br>Setup</h3>
+          </div>
+          <div class="service-card" data-image="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&h=400&fit=crop">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            </div>
+            <h3>Design<br>Consultation</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="process section-padding">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Our Process</p>
+        <h2 class="section-title">How We Build Comfort & Craftsmanship</h2>
+      </div>
+      <div class="process-grid">
+        <div class="process-step" style="animation-delay: 0s;">
+          <div class="process-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Consultation</h3>
+          <p>Understanding your vision and requirements</p>
+        </div>
+        <div class="process-step" style="animation-delay: 0.1s;">
+          <div class="process-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <h3>Concept Design</h3>
+          <p>Creating detailed plans and 3D visualizations</p>
+        </div>
+        <div class="process-step" style="animation-delay: 0.2s;">
+          <div class="process-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+          </div>
+          <h3>Material Selection</h3>
+          <p>Choosing premium quality materials</p>
+        </div>
+        <div class="process-step" style="animation-delay: 0.3s;">
+          <div class="process-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3>Manufacturing</h3>
+          <p>Expert craftsmanship in action</p>
+        </div>
+        <div class="process-step" style="animation-delay: 0.4s;">
+          <div class="process-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <h3>Delivery & Setup</h3>
+          <p>Professional installation and finishing</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="projects section-padding" id="portfolio">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Featured Projects</p>
+        <h2 class="section-title">Explore Our Signature Furniture Projects</h2>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card" style="animation-delay: 0s;">
+          <div class="project-number">01</div>
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=600&h=450&fit=crop" alt="Project 1">
+          </div>
+          <div class="project-overlay">
+            <h3>Luxury Living Room Setup</h3>
+            <p>Contemporary furniture design with custom upholstery</p>
+          </div>
+        </div>
+        <div class="project-card" style="animation-delay: 0.15s;">
+          <div class="project-number">02</div>
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&h=450&fit=crop" alt="Project 2">
+          </div>
+          <div class="project-overlay">
+            <h3>Contemporary Dining Space</h3>
+            <p>Elegant dining furniture with modern aesthetics</p>
+          </div>
+        </div>
+        <div class="project-card" style="animation-delay: 0.3s;">
+          <div class="project-number">03</div>
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&h=450&fit=crop" alt="Project 3">
+          </div>
+          <div class="project-overlay">
+            <h3>Master Bedroom Suite</h3>
+            <p>Premium quality bedroom set with luxury finishing</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about section-padding" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <div class="section-header" style="text-align: left;">
+            <p class="section-label">Custom Designs</p>
+            <h2 class="section-title">Build Your Dream Home with the Best Furniture Company</h2>
+            <p class="section-desc" style="margin-left: 0;">We blend innovative designs with traditional craftsmanship to create furniture that tells your unique story and suits your lifestyle. Excellence is our standard.</p>
+          </div>
+        </div>
+        <div>
+          <div class="benefit-card">
+            <h3>
+              <div class="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              Premium Quality
+            </h3>
+            <p>We use only the finest materials and employ skilled craftsmen to ensure exceptional quality in every piece.</p>
+          </div>
+          <div class="benefit-card">
+            <h3>
+              <div class="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15l-2-2m0 0l-2-2m2 2l2-2m-2 2l-2 2M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0Z"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              </div>
+              Expert Installation
+            </h3>
+            <p>Professional installation services ensure your furniture is perfectly set up and ready to enjoy from day one.</p>
+          </div>
+          <div class="benefit-card">
+            <h3>
+              <div class="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              On-Time Delivery
+            </h3>
+            <p>We respect your time with reliable delivery schedules and quick turnaround on all custom projects.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials section-padding">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Testimonials</p>
+        <h2 class="section-title">Hear From Our Happy Clients</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card" style="animation-delay: 0s;">
+          <div class="stars">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p>Working with FurniNest was incredible! The custom furniture they designed exceeded my expectations. Professional service from start to finish.</p>
+          <div class="testimonial-author">Rahul Sharma</div>
+        </div>
+        <div class="testimonial-card" style="animation-delay: 0.2s;">
+          <div class="stars">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p>Impeccable craftsmanship and attention to detail. They transformed our living space into something truly special. Highly recommend their services!</p>
+          <div class="testimonial-author">Priya & Rahaan</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq section-padding">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-container">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Do you provide furniture designs?</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, we offer complete custom furniture design services tailored to your space and preferences. Our design team works closely with you to create pieces that match your vision.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What materials do you use?</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>We use premium quality materials including solid wood, engineered wood, metal, and high-grade upholstery fabrics. All materials are carefully selected for durability and aesthetics.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How long does the process take?</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Timeline varies based on project complexity. Standard pieces take 4-6 weeks, while custom designs may require 8-12 weeks from consultation to delivery.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Do you provide warranty?</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, all our furniture comes with a comprehensive warranty covering manufacturing defects. We also offer maintenance services to keep your furniture in perfect condition.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact section-padding" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Get In Touch</p>
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-desc">Ready to transform your space? Let's discuss your project</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-card">
+            <div class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <h3>Visit Us</h3>
+            <p>Mumbai, Maharashtra<br>India - 400001</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <h3>Call Us</h3>
+            <p>+91 98765 43210<br>Mon-Sat: 9AM - 7PM</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <h3>Email Us</h3>
+            <p>info@wowmodular.com<br>support@wowmodular.com</p>
+          </div>
+        </div>
+        <div class="contact-form-wrapper">
+  <form class="contact-form" action="/contact" method="POST" enctype="multipart/form-data">
+
+    <div class="form-group">
+      <input type="text" name="name" placeholder="Your Name" required>
+    </div>
+
+    <div class="form-group">
+      <input type="email" name="email" placeholder="Your Email" required>
+    </div>
+
+    <div class="form-group">
+      <input type="tel" name="phone" placeholder="Your Phone" required>
+    </div>
+
+    <div class="form-group">
+      <select name="service" required>
+        <option value="">Select Service</option>
+        <option value="custom">Custom Design</option>
+        <option value="installation">Installation</option>
+        <option value="consultation">Consultation</option>
+        <option value="renovation">Renovation</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <div class="file-upload-wrapper">
+        <label for="designFile" class="file-upload-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <span>Upload Design File (Optional)</span>
+        </label>
+
+        <!-- Only change: added name="designFile" -->
+        <input type="file" id="designFile" name="designFile"
+               class="file-upload-input" accept=".pdf,.jpg,.jpeg,.png,.dwg">
+        <div class="file-name" id="fileName"></div>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Send Message</button>
+  </form>
+</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Wow Modular</h4>
+          <p>We blend innovative designs with traditional craftsmanship</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li>Email: info@wowmodular.com</li>
+            <li>Phone: +91 98765 43210</li>
+            <li>Mumbai, Maharashtra, India</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <div class="social-icons">
+            <div class="social-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+            <div class="social-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </div>
+            <div class="social-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Wow Modular. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Button -->
+  <a href="https://wa.me/9182198034" class="whatsapp-btn" target="_blank">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </a>
+
+  <script>
+  document.getElementById("designFile").addEventListener("change", function() {
+    const fileName = document.getElementById("fileName");
+    if (this.files.length > 0) {
+      fileName.innerText = this.files[0].name;
+    } else {
+      fileName.innerText = "";
+    }
+  });
+</script>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      mobileMenuBtn.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+    });
+
+    // Close mobile menu when clicking on links
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        mobileMenuBtn.textContent = '☰';
+      });
+    });
+
+    // Hero Carousel
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-slide');
+    
+    function nextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+    
+    setInterval(nextSlide, 4000);
+
+    // Service Cards Auto Hover
+    const serviceCards = document.querySelectorAll('.service-card');
+    let autoHoverIndex = 0;
+    
+    function autoHover() {
+      serviceCards.forEach(card => card.classList.remove('auto-hover'));
+      serviceCards[autoHoverIndex].classList.add('auto-hover');
+      autoHoverIndex = (autoHoverIndex + 1) % serviceCards.length;
+    }
+    
+    setInterval(autoHover, 2500);
+    
+    serviceCards.forEach((card, index) => {
+      const img = card.getAttribute('data-image');
+      if (img) {
+        // Create a unique style element for each card
+        const beforeStyle = document.createElement('style');
+        beforeStyle.innerHTML = `
+          .services-grid .service-card:nth-child(${index + 1})::before { 
+            background-image: url('${img}'); 
+          }
+        `;
+        document.head.appendChild(beforeStyle);
+      }
+      
+      card.addEventListener('mouseenter', () => {
+        serviceCards.forEach(c => c.classList.remove('auto-hover'));
+      });
+    });
+
+    // File Upload Display
+    const fileInput = document.getElementById('designFile');
+    const fileName = document.getElementById('fileName');
+    
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        fileName.textContent = `Selected: ${e.target.files[0].name}`;
+      } else {
+        fileName.textContent = '';
+      }
+    });
+
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        faqItems.forEach(i => i.classList.remove('open'));
+        if (!isOpen) {
+          item.classList.add('open');
+        }
+      });
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
