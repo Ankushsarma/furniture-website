@@ -22,9 +22,12 @@ const UploadSchema = new mongoose.Schema({
   fileName: String,
   filePath: String,
 
-  accepted: { type: Boolean, default: false },
 
-  uploadedAt: { type: Date, default: Date.now }
+  uploadedAt: { type: Date, default: Date.now },
+  accepted: { type: Boolean, default: false },
+  completed: { type: Boolean, default: false },
+  paymentDone: { type: Boolean, default: false }
+
 });
 
 const Upload = mongoose.model("Upload", UploadSchema);
@@ -107,6 +110,30 @@ app.post("/delete/:id", async (req, res) => {
   }
 });
 
+app.post("/order/complete/:id", async (req, res) => {
+  try {
+    await Upload.findByIdAndUpdate(req.params.id, { completed: true });
+    res.json({ success: true });
+  } catch (err) {
+    res.json({ success: false });
+  }
+});
+app.post("/order/payment/:id", async (req, res) => {
+  try {
+    await Upload.findByIdAndUpdate(req.params.id, { paymentDone: true });
+    res.json({ success: true });
+  } catch (err) {
+    res.json({ success: false });
+  }
+});
+app.post("/order/delete/:id", async (req, res) => {
+  try {
+    await Upload.findByIdAndDelete(req.params.id);
+    res.json({ success: true });
+  } catch (err) {
+    res.json({ success: false });
+  }
+});
 
 
 // -------------------- Start Server --------------------

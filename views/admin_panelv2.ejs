@@ -343,17 +343,17 @@
   <div class="admin-body">
     <aside class="sidebar">
       <ul class="sidebar-menu">
-        <li class="active" onclick="showSection('dashboard')">Dashboard</li>
-        <li onclick="showSection('messages')">Contact Messages</li>
-        <li onclick="showSection('orders')">Work Orders</li>
-        <li onclick="showSection('testimonials')">Testimonials</li>
-        <li onclick="showSection('projects')">Projects</li>
+        <li class="active" onclick="showSection('dashboard', event)">Dashboard</li>
+        <li onclick="showSection('messages', event)">Contact Messages</li>
+        <li onclick="showSection('orders', event)">Work Orders</li>
+        <li onclick="showSection('testimonials', event)">Testimonials</li>
+        <li onclick="showSection('projects', event)">Projects</li>
       </ul>
     </aside>
 
     <main class="main-content">
 
-      <!-- Dashboard -->
+      <!-- =================== DASHBOARD =================== -->
       <section class="content-section active" id="dashboard">
         <div class="section-header">
           <h2>Dashboard Overview</h2>
@@ -367,27 +367,27 @@
 
           <div class="stat-card">
             <h3>New Messages</h3>
-            <div class="number"><%= messages.filter(m => !m.accepted).length %></div>
+            <div class="number"><%= messages.filter(m=>!m.accepted).length %></div>
           </div>
 
           <div class="stat-card">
             <h3>Active Orders</h3>
-            <div class="number"><%= messages.filter(m => m.accepted).length %></div>
+            <div class="number"><%= messages.filter(m=>m.accepted).length %></div>
           </div>
 
           <div class="stat-card">
             <h3>Pending Payment</h3>
-            <div class="number">3</div>
+            <div class="number"><%= messages.filter(m=>m.completed && !m.paymentDone).length %></div>
           </div>
 
           <div class="stat-card">
             <h3>Completed Works</h3>
-            <div class="number">15</div>
+            <div class="number"><%= messages.filter(m=>m.paymentDone).length %></div>
           </div>
         </div>
       </section>
 
-      <!-- Contact Messages -->
+      <!-- =================== CONTACT MESSAGES =================== -->
       <section class="content-section" id="messages">
         <div class="section-header">
           <h2>Contact Messages</h2>
@@ -407,8 +407,8 @@
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody>
 
+            <tbody>
               <% let pending = messages.filter(m => !m.accepted); %>
 
               <% if (pending.length === 0) { %>
@@ -416,7 +416,7 @@
               <% } %>
 
               <% pending.forEach(msg => { %>
-              <tr>
+              <tr id="msg-<%= msg._id %>">
                 <td><%= new Date(msg.uploadedAt).toLocaleDateString() %></td>
                 <td><%= msg.name %></td>
                 <td><%= msg.email %></td>
@@ -435,8 +435,10 @@
 
                 <td>
                   <button class="action-btn btn-view" onclick="openMessageModal('<%= msg._id %>')">View</button>
-                  <button class="action-btn btn-edit" onclick="acceptMessage('<%= msg._id %>', this)">Accept</button>
-                  <button class="action-btn btn-delete" onclick="deleteMessage('<%= msg._id %>', this)">Delete</button>
+                  <button class="action-btn btn-edit"
+                    onclick="acceptMessage('<%= msg._id %>')">Accept</button>
+                  <button class="action-btn btn-delete"
+                    onclick="deleteMessage('<%= msg._id %>')">Delete</button>
                 </td>
               </tr>
               <% }) %>
@@ -446,13 +448,101 @@
         </div>
       </section>
 
-      <!-- Work Orders -->
+      <!-- =================== WORK ORDERS =================== -->
       <section class="content-section" id="orders">
         <div class="section-header">
           <h2>Work Orders</h2>
         </div>
 
+        <!-- --------- ONGOING ORDERS -------- -->
         <div class="card">
+          <h3>🟡 Ongoing Work Orders</h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Client</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Payment</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <% let ongoing = messages.filter(m => m.accepted && !m.completed); %>
+
+              <% if (ongoing.length === 0) { %>
+                <tr><td colspan="7" style="text-align:center;padding:1rem;">No ongoing work orders</td></tr>
+              <% } %>
+
+              <% ongoing.forEach(order => { %>
+              <tr id="order-<%= order._id %>">
+                <td>#WM<%= order._id.toString().slice(-4).toUpperCase() %></td>
+                <td><%= order.name %></td>
+                <td><%= order.service %></td>
+                <td><%= new Date(order.uploadedAt).toLocaleDateString() %></td>
+                <td><span class="badge badge-progress">In Progress</span></td>
+                <td><span class="badge badge-unpaid">Pending</span></td>
+
+                <td>
+                  <button class="action-btn btn-edit" onclick="markCompleted('<%= order._id %>')">Mark Completed</button>
+                  <button class="action-btn btn-delete" onclick="deleteOrder('<%= order._id %>')">Delete</button>
+                </td>
+              </tr>
+              <% }) %>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- --------- COMPLETED BUT PAYMENT PENDING -------- -->
+        <div class="card">
+          <h3>🔵 Completed — Payment Pending</h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Client</th>
+                <th>Service</th>
+                <th>Completed Date</th>
+                <th>Status</th>
+                <th>Payment</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <% let completedPending = messages.filter(m => m.completed && !m.paymentDone); %>
+
+              <% if (completedPending.length === 0) { %>
+                <tr><td colspan="7" style="text-align:center;padding:1rem;">No completed orders pending payment</td></tr>
+              <% } %>
+
+              <% completedPending.forEach(order => { %>
+              <tr id="order-<%= order._id %>">
+                <td>#WM<%= order._id.toString().slice(-4).toUpperCase() %></td>
+                <td><%= order.name %></td>
+                <td><%= order.service %></td>
+                <td><%= new Date(order.uploadedAt).toLocaleDateString() %></td>
+                <td><span class="badge badge-completed">Completed</span></td>
+                <td><span class="badge badge-unpaid">Pending</span></td>
+
+                <td>
+                  <button class="action-btn btn-edit" onclick="markPayment('<%= order._id %>')">Mark Payment Done</button>
+                  <button class="action-btn btn-delete" onclick="deleteOrder('<%= order._id %>')">Delete</button>
+                </td>
+              </tr>
+              <% }) %>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- --------- PAYMENT DONE -------- -->
+        <div class="card">
+          <h3>🟢 Payment Done Orders</h3>
           <table class="data-table">
             <thead>
               <tr>
@@ -467,23 +557,23 @@
             </thead>
 
             <tbody>
-              <% let acceptedOrders = messages.filter(m => m.accepted); %>
+              <% let paid = messages.filter(m => m.paymentDone); %>
 
-              <% if (acceptedOrders.length === 0) { %>
-                <tr><td colspan="7" style="text-align:center;padding:1rem;">No work orders yet</td></tr>
+              <% if (paid.length === 0) { %>
+                <tr><td colspan="7" style="text-align:center;padding:1rem;">No fully completed orders</td></tr>
               <% } %>
 
-              <% acceptedOrders.forEach(order => { %>
-              <tr>
+              <% paid.forEach(order => { %>
+              <tr id="order-<%= order._id %>">
                 <td>#WM<%= order._id.toString().slice(-4).toUpperCase() %></td>
                 <td><%= order.name %></td>
                 <td><%= order.service %></td>
                 <td><%= new Date(order.uploadedAt).toLocaleDateString() %></td>
-                <td><span class="badge badge-progress">In Progress</span></td>
-                <td><span class="badge badge-unpaid">Pending</span></td>
+                <td><span class="badge badge-completed">Completed</span></td>
+                <td><span class="badge badge-paid">Paid</span></td>
+
                 <td>
-                  <button class="action-btn btn-edit">Edit</button>
-                  <button class="action-btn btn-delete">Delete</button>
+                  <button class="action-btn btn-delete" onclick="deleteOrder('<%= order._id %>')">Delete</button>
                 </td>
               </tr>
               <% }) %>
@@ -491,39 +581,36 @@
             </tbody>
           </table>
         </div>
+
       </section>
 
-      <!-- Testimonials -->
+      <!-- EMPTY SECTIONS -->
       <section class="content-section" id="testimonials">
-        <div class="section-header">
-          <h2>Testimonials</h2>
-        </div>
+        <div class="section-header"><h2>Testimonials</h2></div>
       </section>
 
-      <!-- Projects -->
       <section class="content-section" id="projects">
-        <div class="section-header">
-          <h2>Projects</h2>
-        </div>
+        <div class="section-header"><h2>Projects</h2></div>
       </section>
 
     </main>
   </div>
 
-  <!-- Message Modal -->
+  <!-- =================== MESSAGE VIEW MODAL =================== -->
   <div class="modal" id="messageModal">
     <div class="modal-content">
       <div class="modal-header">
         <h2>Message Details</h2>
         <button class="close-btn" onclick="closeModal('messageModal')">&times;</button>
       </div>
+
       <div id="messageDetails"></div>
     </div>
   </div>
 
-  <!-- JavaScript -->
+  <!-- =================== JAVASCRIPT =================== -->
   <script>
-    function showSection(id) {
+    function showSection(id, event) {
       document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
 
@@ -534,41 +621,60 @@
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-    function acceptMessage(id, btn) {
+    // Accept Message
+    function acceptMessage(id) {
       fetch(`/accept/${id}`, { method: "POST" })
         .then(r => r.json())
-        .then(d => {
-          if (d.success) {
-            alert("Accepted!");
-            location.reload();
-          }
-        });
+        .then(d => { if (d.success) location.reload(); });
     }
 
-    function deleteMessage(id, btn) {
+    // Delete Message
+    function deleteMessage(id) {
       if (!confirm("Delete this message?")) return;
-      fetch(`/delete/${id}`, { method: "POST" })
+
+      fetch(`/delete/${id}`, { method:"POST" })
         .then(r => r.json())
-        .then(d => {
-          if (d.success) {
-            btn.closest("tr").remove();
-            alert("Deleted!");
-          }
-        });
+        .then(d => { if (d.success) location.reload(); });
     }
 
+    // All messages for modal
     const allMessages = <%- JSON.stringify(messages) %>;
 
+    // View modal
     function openMessageModal(id) {
       const msg = allMessages.find(m => m._id === id);
+
       document.getElementById("messageDetails").innerHTML = `
         <p><strong>Name:</strong> ${msg.name}</p>
         <p><strong>Email:</strong> ${msg.email}</p>
         <p><strong>Phone:</strong> ${msg.phone}</p>
         <p><strong>Service:</strong> ${msg.service}</p>
         <p><strong>Message:</strong> ${msg.message}</p>
+        ${msg.filePath ? `<p><a href="${msg.filePath}" download>Download File</a></p>` : "" }
       `;
+
       openModal("messageModal");
+    }
+
+    // Work order actions
+    function markCompleted(id) {
+      fetch(`/order/complete/${id}`, { method:"POST" })
+        .then(r => r.json())
+        .then(d => { if (d.success) location.reload(); });
+    }
+
+    function markPayment(id) {
+      fetch(`/order/payment/${id}`, { method:"POST" })
+        .then(r => r.json())
+        .then(d => { if (d.success) location.reload(); });
+    }
+
+    function deleteOrder(id) {
+      if (!confirm("Delete this order?")) return;
+
+      fetch(`/order/delete/${id}`, { method:"POST" })
+        .then(r => r.json())
+        .then(d => { if (d.success) location.reload(); });
     }
   </script>
 
