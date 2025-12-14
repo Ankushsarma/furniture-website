@@ -584,10 +584,59 @@
 
       </section>
 
-      <!-- EMPTY SECTIONS -->
-      <section class="content-section" id="testimonials">
-        <div class="section-header"><h2>Testimonials</h2></div>
-      </section>
+ <!-- =================== TESTIMONIALS =================== -->
+<section class="content-section" id="testimonials">
+  <div class="section-header">
+    <h2>Testimonials</h2>
+    <button class="btn" onclick="openTestimonialModal()">Add Testimonial</button>
+  </div>
+
+  <div class="card">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Author</th>
+          <th>Rating</th>
+          <th>Review</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if (!testimonials || testimonials.length === 0) { %>
+          <tr>
+            <td colspan="5" style="text-align:center;padding:1rem;">
+              No testimonials added
+            </td>
+          </tr>
+        <% } %>
+
+        <% testimonials.forEach(t => { %>
+          <tr id="testimonial-<%= t._id %>">
+            <td><%= t.author %></td>
+            <td><%= "⭐".repeat(t.rating) %></td>
+            <td>
+              <%= t.review.length > 60 ? t.review.slice(0,60) + "..." : t.review %>
+            </td>
+            <td><%= new Date(t.createdAt).toLocaleDateString() %></td>
+            <td>
+              <button class="action-btn btn-edit"
+                onclick='editTestimonial(<%- JSON.stringify(t) %>)'>
+                Edit
+              </button>
+              <button class="action-btn btn-delete"
+                onclick="deleteTestimonial('<%= t._id %>')">
+                Delete
+              </button>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 
       <section class="content-section" id="projects">
         <div class="section-header"><h2>Projects</h2></div>
@@ -607,6 +656,37 @@
       <div id="messageDetails"></div>
     </div>
   </div>
+  <!-- =================== TESTIMONIAL MODAL =================== -->
+<div class="modal" id="testimonialModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="testimonialTitle">Add Testimonial</h2>
+      <button class="close-btn" onclick="closeModal('testimonialModal')">&times;</button>
+    </div>
+
+    <form id="testimonialForm">
+      <input type="hidden" id="testimonialId">
+
+      <div class="form-group">
+        <label>Author Name</label>
+        <input type="text" id="testimonialAuthor" required>
+      </div>
+
+      <div class="form-group">
+        <label>Rating (1-5)</label>
+        <input type="number" id="testimonialRating" min="1" max="5" required>
+      </div>
+
+      <div class="form-group">
+        <label>Review</label>
+        <textarea id="testimonialReview" required></textarea>
+      </div>
+
+      <button type="submit" class="btn">Save Testimonial</button>
+    </form>
+  </div>
+</div>
+
 
   <!-- =================== JAVASCRIPT =================== -->
   <script>
@@ -676,7 +756,51 @@
         .then(r => r.json())
         .then(d => { if (d.success) location.reload(); });
     }
-  </script>
+    
+  function openTestimonialModal() {
+    document.getElementById("testimonialForm").reset();
+    document.getElementById("testimonialId").value = "";
+    document.getElementById("testimonialTitle").innerText = "Add Testimonial";
+    openModal("testimonialModal");
+  }
+
+  function editTestimonial(t) {
+    document.getElementById("testimonialId").value = t._id;
+    document.getElementById("testimonialAuthor").value = t.author;
+    document.getElementById("testimonialRating").value = t.rating;
+    document.getElementById("testimonialReview").value = t.review;
+
+    document.getElementById("testimonialTitle").innerText = "Edit Testimonial";
+    openModal("testimonialModal");
+  }
+
+  document.getElementById("testimonialForm").addEventListener("submit", e => {
+    e.preventDefault();
+
+    const id = document.getElementById("testimonialId").value;
+
+    fetch(id ? `/testimonial/update/${id}` : `/testimonial/create`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        author: testimonialAuthor.value,
+        rating: testimonialRating.value,
+        review: testimonialReview.value
+      })
+    })
+    .then(r => r.json())
+    .then(d => { if (d.success) location.reload(); });
+  });
+
+  function deleteTestimonial(id) {
+    if (!confirm("Delete this testimonial?")) return;
+
+    fetch(`/testimonial/delete/${id}`, { method: "POST" })
+      .then(r => r.json())
+      .then(d => { if (d.success) location.reload(); });
+  }
+</script>
+
 
 </body>
 
