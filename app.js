@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 const bodyParser = require("body-parser");
 const path = require("path");
-require("dotenv").config()
+require("dotenv").config();
+
 const app = express();
 
 /* ================= MONGODB ================= */
@@ -13,7 +14,7 @@ mongoose.connect(process.env.URL)
 
 /* ================= MODELS ================= */
 
-// Contact / Work Orders
+// CONTACT / WORK ORDERS
 const UploadSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -29,7 +30,7 @@ const UploadSchema = new mongoose.Schema({
 });
 const Upload = mongoose.model("Upload", UploadSchema);
 
-// Testimonials
+// TESTIMONIALS
 const TestimonialSchema = new mongoose.Schema({
   author: String,
   rating: Number,
@@ -38,41 +39,18 @@ const TestimonialSchema = new mongoose.Schema({
 });
 const Testimonial = mongoose.model("Testimonial", TestimonialSchema);
 
-// Projects
+// PROJECTS
 const ProjectSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-
-  description: {
-    type: String,
-    required: true
-  },
-
+  title: { type: String, required: true },
+  description: { type: String, required: true },
   category: {
     type: String,
-    required: true,
-    enum: [
-      "living-room",
-      "bedroom",
-      "kitchen",
-      "office",
-      "dining"
-    ]
-  },
-
-  imageUrl: {
-    type: String,
+    enum: ["living-room", "bedroom", "kitchen", "office", "dining"],
     required: true
   },
-
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
+  imageUrl: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
 });
-
 const Project = mongoose.model("Project", ProjectSchema);
 
 /* ================= VIEW ENGINE ================= */
@@ -93,14 +71,14 @@ const upload = multer({ storage });
 
 /* ================= ROUTES ================= */
 
-// Home Page
+// HOME
 app.get("/", async (req, res) => {
-  const projects = await Project.find().sort({ createdAt: -1 });
+  const projects = await Project.find().limit(6).sort({ createdAt: -1 });
   const testimonials = await Testimonial.find().sort({ createdAt: -1 });
   res.render("home", { projects, testimonials });
 });
 
-// Contact Form
+// CONTACT FORM
 app.post("/contact", upload.single("designFile"), async (req, res) => {
   await Upload.create({
     name: req.body.name,
@@ -114,27 +92,18 @@ app.post("/contact", upload.single("designFile"), async (req, res) => {
   res.redirect("/");
 });
 
-// Admin Panel
+// ADMIN PANEL
 app.get("/admin", async (req, res) => {
   const messages = await Upload.find().sort({ uploadedAt: -1 });
   const testimonials = await Testimonial.find().sort({ createdAt: -1 });
   const projects = await Project.find().sort({ createdAt: -1 });
 
-  res.render("admin_panelv2", {
-    messages,
-    testimonials,
-    projects
-  });
+  res.render("admin_panelv2", { messages, testimonials, projects });
 });
 
 /* ================= WORK ORDERS ================= */
 app.post("/accept/:id", async (req, res) => {
   await Upload.findByIdAndUpdate(req.params.id, { accepted: true });
-  res.json({ success: true });
-});
-
-app.post("/delete/:id", async (req, res) => {
-  await Upload.findByIdAndDelete(req.params.id);
   res.json({ success: true });
 });
 
@@ -170,13 +139,13 @@ app.post("/testimonial/delete/:id", async (req, res) => {
 });
 
 /* ================= PROJECTS ================= */
-app.post("/project/create", async (req, res) => {
-  await Project.create(req.body);
-  res.json({ success: true });
-});
-
-app.post("/project/update/:id", async (req, res) => {
-  await Project.findByIdAndUpdate(req.params.id, req.body);
+app.post("/project/create", upload.single("image"), async (req, res) => {
+  await Project.create({
+    title: req.body.title,
+    description: req.body.description,
+    category: req.body.category,
+    imageUrl: "/uploads/" + req.file.filename
+  });
   res.json({ success: true });
 });
 
@@ -186,14 +155,12 @@ app.post("/project/delete/:id", async (req, res) => {
 });
 
 app.get("/projects", async (req, res) => {
-  const projects = await Project.find().sort({ order: 1 });
+  const projects = await Project.find().sort({ createdAt: -1 });
   res.render("projects", { projects });
 });
 
-
 /* ================= SERVER ================= */
-app.listen(3000||process.eenv.PORT, () => {
-  console.log("Server running on http://localhost:3000");
-  console.log("http://localhost:3000/admin");
-  
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
