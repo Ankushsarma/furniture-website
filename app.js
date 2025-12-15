@@ -160,4 +160,6 @@ app.post("/project/delete/:id", async (req, res) => {
 /* ================= SERVER ================= */
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
+  console.log("http://localhost:3000/admin");
+  
 });
