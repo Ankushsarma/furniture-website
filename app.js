@@ -40,11 +40,39 @@ const Testimonial = mongoose.model("Testimonial", TestimonialSchema);
 
 // Projects
 const ProjectSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  imageUrl: String,
-  createdAt: { type: Date, default: Date.now }
+  title: {
+    type: String,
+    required: true
+  },
+
+  description: {
+    type: String,
+    required: true
+  },
+
+  category: {
+    type: String,
+    required: true,
+    enum: [
+      "living-room",
+      "bedroom",
+      "kitchen",
+      "office",
+      "dining"
+    ]
+  },
+
+  imageUrl: {
+    type: String,
+    required: true
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
+
 const Project = mongoose.model("Project", ProjectSchema);
 
 /* ================= VIEW ENGINE ================= */
@@ -157,9 +185,11 @@ app.post("/project/delete/:id", async (req, res) => {
   res.json({ success: true });
 });
 
-app.get("/projects",async (req,res)=>{
-  res.render("projects_page");
-})
+app.get("/projects", async (req, res) => {
+  const projects = await Project.find().sort({ order: 1 });
+  res.render("projects", { projects });
+});
+
 
 /* ================= SERVER ================= */
 app.listen(3000, () => {
