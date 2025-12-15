@@ -362,27 +362,37 @@
         <div class="stats-grid">
           <div class="stat-card">
             <h3>Total Messages</h3>
-            <div class="number"><%= messages.length %></div>
+            <div class="number">
+              <%= messages.length %>
+            </div>
           </div>
 
           <div class="stat-card">
             <h3>New Messages</h3>
-            <div class="number"><%= messages.filter(m=>!m.accepted).length %></div>
+            <div class="number">
+              <%= messages.filter(m=>!m.accepted).length %>
+            </div>
           </div>
 
           <div class="stat-card">
             <h3>Active Orders</h3>
-            <div class="number"><%= messages.filter(m=>m.accepted).length %></div>
+            <div class="number">
+              <%= messages.filter(m=>m.accepted).length %>
+            </div>
           </div>
 
           <div class="stat-card">
             <h3>Pending Payment</h3>
-            <div class="number"><%= messages.filter(m=>m.completed && !m.paymentDone).length %></div>
+            <div class="number">
+              <%= messages.filter(m=>m.completed && !m.paymentDone).length %>
+            </div>
           </div>
 
           <div class="stat-card">
             <h3>Completed Works</h3>
-            <div class="number"><%= messages.filter(m=>m.paymentDone).length %></div>
+            <div class="number">
+              <%= messages.filter(m=>m.paymentDone).length %>
+            </div>
           </div>
         </div>
       </section>
@@ -409,39 +419,50 @@
             </thead>
 
             <tbody>
-              <% let pending = messages.filter(m => !m.accepted); %>
+              <% let pending=messages.filter(m=> !m.accepted); %>
 
-              <% if (pending.length === 0) { %>
-                <tr><td colspan="8" style="text-align:center;padding:1rem;">No new messages</td></tr>
-              <% } %>
-
-              <% pending.forEach(msg => { %>
-              <tr id="msg-<%= msg._id %>">
-                <td><%= new Date(msg.uploadedAt).toLocaleDateString() %></td>
-                <td><%= msg.name %></td>
-                <td><%= msg.email %></td>
-                <td><%= msg.phone %></td>
-                <td><%= msg.service %></td>
-
-                <td>
-                  <% if (msg.filePath) { %>
-                    <span class="badge badge-progress">Yes</span>
-                  <% } else { %>
-                    <span class="badge badge-progress">No</span>
+                <% if (pending.length===0) { %>
+                  <tr>
+                    <td colspan="8" style="text-align:center;padding:1rem;">No new messages</td>
+                  </tr>
                   <% } %>
-                </td>
 
-                <td><span class="badge badge-new">New</span></td>
+                    <% pending.forEach(msg=> { %>
+                      <tr id="msg-<%= msg._id %>">
+                        <td>
+                          <%= new Date(msg.uploadedAt).toLocaleDateString() %>
+                        </td>
+                        <td>
+                          <%= msg.name %>
+                        </td>
+                        <td>
+                          <%= msg.email %>
+                        </td>
+                        <td>
+                          <%= msg.phone %>
+                        </td>
+                        <td>
+                          <%= msg.service %>
+                        </td>
 
-                <td>
-                  <button class="action-btn btn-view" onclick="openMessageModal('<%= msg._id %>')">View</button>
-                  <button class="action-btn btn-edit"
-                    onclick="acceptMessage('<%= msg._id %>')">Accept</button>
-                  <button class="action-btn btn-delete"
-                    onclick="deleteMessage('<%= msg._id %>')">Delete</button>
-                </td>
-              </tr>
-              <% }) %>
+                        <td>
+                          <% if (msg.filePath) { %>
+                            <span class="badge badge-progress">Yes</span>
+                            <% } else { %>
+                              <span class="badge badge-progress">No</span>
+                              <% } %>
+                        </td>
+
+                        <td><span class="badge badge-new">New</span></td>
+
+                        <td>
+                          <button class="action-btn btn-view" onclick="openMessageModal('<%= msg._id %>')">View</button>
+                          <button class="action-btn btn-edit" onclick="acceptMessage('<%= msg._id %>')">Accept</button>
+                          <button class="action-btn btn-delete"
+                            onclick="deleteMessage('<%= msg._id %>')">Delete</button>
+                        </td>
+                      </tr>
+                      <% }) %>
 
             </tbody>
           </table>
@@ -471,27 +492,38 @@
             </thead>
             <tbody>
 
-              <% let ongoing = messages.filter(m => m.accepted && !m.completed); %>
+              <% let ongoing=messages.filter(m=> m.accepted && !m.completed); %>
 
-              <% if (ongoing.length === 0) { %>
-                <tr><td colspan="7" style="text-align:center;padding:1rem;">No ongoing work orders</td></tr>
-              <% } %>
+                <% if (ongoing.length===0) { %>
+                  <tr>
+                    <td colspan="7" style="text-align:center;padding:1rem;">No ongoing work orders</td>
+                  </tr>
+                  <% } %>
 
-              <% ongoing.forEach(order => { %>
-              <tr id="order-<%= order._id %>">
-                <td>#WM<%= order._id.toString().slice(-4).toUpperCase() %></td>
-                <td><%= order.name %></td>
-                <td><%= order.service %></td>
-                <td><%= new Date(order.uploadedAt).toLocaleDateString() %></td>
-                <td><span class="badge badge-progress">In Progress</span></td>
-                <td><span class="badge badge-unpaid">Pending</span></td>
+                    <% ongoing.forEach(order=> { %>
+                      <tr id="order-<%= order._id %>">
+                        <td>#WM<%= order._id.toString().slice(-4).toUpperCase() %>
+                        </td>
+                        <td>
+                          <%= order.name %>
+                        </td>
+                        <td>
+                          <%= order.service %>
+                        </td>
+                        <td>
+                          <%= new Date(order.uploadedAt).toLocaleDateString() %>
+                        </td>
+                        <td><span class="badge badge-progress">In Progress</span></td>
+                        <td><span class="badge badge-unpaid">Pending</span></td>
 
-                <td>
-                  <button class="action-btn btn-edit" onclick="markCompleted('<%= order._id %>')">Mark Completed</button>
-                  <button class="action-btn btn-delete" onclick="deleteOrder('<%= order._id %>')">Delete</button>
-                </td>
-              </tr>
-              <% }) %>
+                        <td>
+                          <button class="action-btn btn-edit" onclick="markCompleted('<%= order._id %>')">Mark
+                            Completed</button>
+                          <button class="action-btn btn-delete"
+                            onclick="deleteOrder('<%= order._id %>')">Delete</button>
+                        </td>
+                      </tr>
+                      <% }) %>
 
             </tbody>
           </table>
@@ -514,27 +546,38 @@
             </thead>
             <tbody>
 
-              <% let completedPending = messages.filter(m => m.completed && !m.paymentDone); %>
+              <% let completedPending=messages.filter(m=> m.completed && !m.paymentDone); %>
 
-              <% if (completedPending.length === 0) { %>
-                <tr><td colspan="7" style="text-align:center;padding:1rem;">No completed orders pending payment</td></tr>
-              <% } %>
+                <% if (completedPending.length===0) { %>
+                  <tr>
+                    <td colspan="7" style="text-align:center;padding:1rem;">No completed orders pending payment</td>
+                  </tr>
+                  <% } %>
 
-              <% completedPending.forEach(order => { %>
-              <tr id="order-<%= order._id %>">
-                <td>#WM<%= order._id.toString().slice(-4).toUpperCase() %></td>
-                <td><%= order.name %></td>
-                <td><%= order.service %></td>
-                <td><%= new Date(order.uploadedAt).toLocaleDateString() %></td>
-                <td><span class="badge badge-completed">Completed</span></td>
-                <td><span class="badge badge-unpaid">Pending</span></td>
+                    <% completedPending.forEach(order=> { %>
+                      <tr id="order-<%= order._id %>">
+                        <td>#WM<%= order._id.toString().slice(-4).toUpperCase() %>
+                        </td>
+                        <td>
+                          <%= order.name %>
+                        </td>
+                        <td>
+                          <%= order.service %>
+                        </td>
+                        <td>
+                          <%= new Date(order.uploadedAt).toLocaleDateString() %>
+                        </td>
+                        <td><span class="badge badge-completed">Completed</span></td>
+                        <td><span class="badge badge-unpaid">Pending</span></td>
 
-                <td>
-                  <button class="action-btn btn-edit" onclick="markPayment('<%= order._id %>')">Mark Payment Done</button>
-                  <button class="action-btn btn-delete" onclick="deleteOrder('<%= order._id %>')">Delete</button>
-                </td>
-              </tr>
-              <% }) %>
+                        <td>
+                          <button class="action-btn btn-edit" onclick="markPayment('<%= order._id %>')">Mark Payment
+                            Done</button>
+                          <button class="action-btn btn-delete"
+                            onclick="deleteOrder('<%= order._id %>')">Delete</button>
+                        </td>
+                      </tr>
+                      <% }) %>
 
             </tbody>
           </table>
@@ -557,26 +600,36 @@
             </thead>
 
             <tbody>
-              <% let paid = messages.filter(m => m.paymentDone); %>
+              <% let paid=messages.filter(m=> m.paymentDone); %>
 
-              <% if (paid.length === 0) { %>
-                <tr><td colspan="7" style="text-align:center;padding:1rem;">No fully completed orders</td></tr>
-              <% } %>
+                <% if (paid.length===0) { %>
+                  <tr>
+                    <td colspan="7" style="text-align:center;padding:1rem;">No fully completed orders</td>
+                  </tr>
+                  <% } %>
 
-              <% paid.forEach(order => { %>
-              <tr id="order-<%= order._id %>">
-                <td>#WM<%= order._id.toString().slice(-4).toUpperCase() %></td>
-                <td><%= order.name %></td>
-                <td><%= order.service %></td>
-                <td><%= new Date(order.uploadedAt).toLocaleDateString() %></td>
-                <td><span class="badge badge-completed">Completed</span></td>
-                <td><span class="badge badge-paid">Paid</span></td>
+                    <% paid.forEach(order=> { %>
+                      <tr id="order-<%= order._id %>">
+                        <td>#WM<%= order._id.toString().slice(-4).toUpperCase() %>
+                        </td>
+                        <td>
+                          <%= order.name %>
+                        </td>
+                        <td>
+                          <%= order.service %>
+                        </td>
+                        <td>
+                          <%= new Date(order.uploadedAt).toLocaleDateString() %>
+                        </td>
+                        <td><span class="badge badge-completed">Completed</span></td>
+                        <td><span class="badge badge-paid">Paid</span></td>
 
-                <td>
-                  <button class="action-btn btn-delete" onclick="deleteOrder('<%= order._id %>')">Delete</button>
-                </td>
-              </tr>
-              <% }) %>
+                        <td>
+                          <button class="action-btn btn-delete"
+                            onclick="deleteOrder('<%= order._id %>')">Delete</button>
+                        </td>
+                      </tr>
+                      <% }) %>
 
             </tbody>
           </table>
@@ -584,63 +637,121 @@
 
       </section>
 
- <!-- =================== TESTIMONIALS =================== -->
-<section class="content-section" id="testimonials">
-  <div class="section-header">
-    <h2>Testimonials</h2>
-    <button class="btn" onclick="openTestimonialModal()">Add Testimonial</button>
-  </div>
+      <!-- =================== TESTIMONIALS =================== -->
+      <section class="content-section" id="testimonials">
+        <div class="section-header">
+          <h2>Testimonials</h2>
+          <button class="btn" onclick="openTestimonialModal()">Add Testimonial</button>
+        </div>
 
-  <div class="card">
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Author</th>
-          <th>Rating</th>
-          <th>Review</th>
-          <th>Date</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
+        <div class="card">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Author</th>
+                <th>Rating</th>
+                <th>Review</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
 
-      <tbody>
-        <% if (!testimonials || testimonials.length === 0) { %>
-          <tr>
-            <td colspan="5" style="text-align:center;padding:1rem;">
-              No testimonials added
-            </td>
-          </tr>
-        <% } %>
+            <tbody>
+              <% if (!testimonials || testimonials.length===0) { %>
+                <tr>
+                  <td colspan="5" style="text-align:center;padding:1rem;">
+                    No testimonials added
+                  </td>
+                </tr>
+                <% } %>
 
-        <% testimonials.forEach(t => { %>
-          <tr id="testimonial-<%= t._id %>">
-            <td><%= t.author %></td>
-            <td><%= "⭐".repeat(t.rating) %></td>
-            <td>
-              <%= t.review.length > 60 ? t.review.slice(0,60) + "..." : t.review %>
-            </td>
-            <td><%= new Date(t.createdAt).toLocaleDateString() %></td>
-            <td>
-              <button class="action-btn btn-edit"
-                onclick='editTestimonial(<%- JSON.stringify(t) %>)'>
-                Edit
-              </button>
-              <button class="action-btn btn-delete"
-                onclick="deleteTestimonial('<%= t._id %>')">
-                Delete
-              </button>
-            </td>
-          </tr>
-        <% }) %>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-
-      <section class="content-section" id="projects">
-        <div class="section-header"><h2>Projects</h2></div>
+                  <% testimonials.forEach(t=> { %>
+                    <tr id="testimonial-<%= t._id %>">
+                      <td>
+                        <%= t.author %>
+                      </td>
+                      <td>
+                        <%= "⭐" .repeat(t.rating) %>
+                      </td>
+                      <td>
+                        <%= t.review.length> 60 ? t.review.slice(0,60) + "..." : t.review %>
+                      </td>
+                      <td>
+                        <%= new Date(t.createdAt).toLocaleDateString() %>
+                      </td>
+                      <td>
+                        <button class="action-btn btn-edit" onclick='editTestimonial(<%- JSON.stringify(t) %>)'>
+                          Edit
+                        </button>
+                        <button class="action-btn btn-delete" onclick="deleteTestimonial('<%= t._id %>')">
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+          </table>
+        </div>
       </section>
+
+
+      <!-- =================== PROJECTS =================== -->
+      <section class="content-section" id="projects">
+        <div class="section-header">
+          <h2>Projects</h2>
+          <button class="btn" onclick="openProjectModal()">Add Project</button>
+        </div>
+
+        <div class="card">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Order</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% if (projects.length===0) { %>
+                <tr>
+                  <td colspan="5" style="text-align:center;padding:1rem;">
+                    No projects added
+                  </td>
+                </tr>
+                <% } %>
+
+                  <% projects.forEach(p=> { %>
+                    <tr id="project-<%= p._id %>">
+                      <td>
+                        <img src="<%= p.image %>" style="width:80px;border-radius:6px;">
+                      </td>
+                      <td>
+                        <%= p.title %>
+                      </td>
+                      <td>
+                        <%= p.description.length> 50 ? p.description.slice(0,50) + "..." : p.description %>
+                      </td>
+                      <td>
+                        <%= p.order %>
+                      </td>
+                      <td>
+                        <button class="action-btn btn-edit" onclick='editProject(<%- JSON.stringify(p) %>)'>
+                          Edit
+                        </button>
+                        <button class="action-btn btn-delete" onclick="deleteProject('<%= p._id %>')">
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
 
     </main>
   </div>
@@ -657,129 +768,181 @@
     </div>
   </div>
   <!-- =================== TESTIMONIAL MODAL =================== -->
-<div class="modal" id="testimonialModal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2 id="testimonialTitle">Add Testimonial</h2>
-      <button class="close-btn" onclick="closeModal('testimonialModal')">&times;</button>
+  <div class="modal" id="testimonialModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="testimonialTitle">Add Testimonial</h2>
+        <button class="close-btn" onclick="closeModal('testimonialModal')">&times;</button>
+      </div>
+
+      <form id="testimonialForm">
+        <input type="hidden" id="testimonialId">
+
+        <div class="form-group">
+          <label>Author Name</label>
+          <input type="text" id="testimonialAuthor" required>
+        </div>
+
+        <div class="form-group">
+          <label>Rating (1-5)</label>
+          <input type="number" id="testimonialRating" min="1" max="5" required>
+        </div>
+
+        <div class="form-group">
+          <label>Review</label>
+          <textarea id="testimonialReview" required></textarea>
+        </div>
+
+        <button type="submit" class="btn">Save Testimonial</button>
+      </form>
     </div>
-
-    <form id="testimonialForm">
-      <input type="hidden" id="testimonialId">
-
-      <div class="form-group">
-        <label>Author Name</label>
-        <input type="text" id="testimonialAuthor" required>
-      </div>
-
-      <div class="form-group">
-        <label>Rating (1-5)</label>
-        <input type="number" id="testimonialRating" min="1" max="5" required>
-      </div>
-
-      <div class="form-group">
-        <label>Review</label>
-        <textarea id="testimonialReview" required></textarea>
-      </div>
-
-      <button type="submit" class="btn">Save Testimonial</button>
-    </form>
   </div>
-</div>
+
+  <div class="modal" id="projectModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="projectModalTitle">Add Project</h2>
+        <button class="close-btn" onclick="closeModal('projectModal')">&times;</button>
+      </div>
+
+      <form id="projectForm">
+        <input type="hidden" id="projectId">
+
+        <div class="form-group">
+          <label>Project Title</label>
+          <input type="text" id="projectTitle" required>
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="projectDescription" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Image URL</label>
+          <input type="text" id="projectImage" placeholder="Paste image URL" required>
+        </div>
+
+        <div class="form-group">
+          <label>Display Order (01, 02, 03...)</label>
+          <input type="number" id="projectOrder" required>
+        </div>
+
+        <button type="submit" class="btn">Save Project</button>
+      </form>
+    </div>
+  </div>
 
 
-  <!-- =================== JAVASCRIPT =================== -->
-  <script>
-    function showSection(id, event) {
-      document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+<script>
+  /* ================== SIDEBAR NAV ================== */
+  function showSection(id, event) {
+    document.querySelectorAll('.content-section').forEach(sec => {
+      sec.classList.remove('active');
+    });
 
-      document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
-      event.target.classList.add('active');
-    }
+    document.getElementById(id).classList.add('active');
 
-    function openModal(id) { document.getElementById(id).classList.add('active'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    document.querySelectorAll('.sidebar-menu li').forEach(li => {
+      li.classList.remove('active');
+    });
 
-    // Accept Message
-    function acceptMessage(id) {
-      fetch(`/accept/${id}`, { method: "POST" })
-        .then(r => r.json())
-        .then(d => { if (d.success) location.reload(); });
-    }
+    event.currentTarget.classList.add('active');
+  }
 
-    // Delete Message
-    function deleteMessage(id) {
-      if (!confirm("Delete this message?")) return;
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+  }
 
-      fetch(`/delete/${id}`, { method:"POST" })
-        .then(r => r.json())
-        .then(d => { if (d.success) location.reload(); });
-    }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
 
-    // All messages for modal
-    const allMessages = <%- JSON.stringify(messages) %>;
+  /* ================== MESSAGES ================== */
+  function acceptMessage(id) {
+    fetch(`/accept/${id}`, { method: "POST" })
+      .then(r => r.json())
+      .then(d => d.success && location.reload());
+  }
 
-    // View modal
-    function openMessageModal(id) {
-      const msg = allMessages.find(m => m._id === id);
+  function deleteMessage(id) {
+    if (!confirm("Delete this message?")) return;
 
-      document.getElementById("messageDetails").innerHTML = `
-        <p><strong>Name:</strong> ${msg.name}</p>
-        <p><strong>Email:</strong> ${msg.email}</p>
-        <p><strong>Phone:</strong> ${msg.phone}</p>
-        <p><strong>Service:</strong> ${msg.service}</p>
-        <p><strong>Message:</strong> ${msg.message}</p>
-        ${msg.filePath ? `<p><a href="${msg.filePath}" download>Download File</a></p>` : "" }
-      `;
+    fetch(`/delete/${id}`, { method: "POST" })
+      .then(r => r.json())
+      .then(d => d.success && location.reload());
+  }
 
-      openModal("messageModal");
-    }
+  const allMessages = <%- JSON.stringify(messages) %>;
 
-    // Work order actions
-    function markCompleted(id) {
-      fetch(`/order/complete/${id}`, { method:"POST" })
-        .then(r => r.json())
-        .then(d => { if (d.success) location.reload(); });
-    }
+  function openMessageModal(id) {
+    const msg = allMessages.find(m => m._id === id);
 
-    function markPayment(id) {
-      fetch(`/order/payment/${id}`, { method:"POST" })
-        .then(r => r.json())
-        .then(d => { if (d.success) location.reload(); });
-    }
+    document.getElementById("messageDetails").innerHTML = `
+      <p><strong>Name:</strong> ${msg.name}</p>
+      <p><strong>Email:</strong> ${msg.email}</p>
+      <p><strong>Phone:</strong> ${msg.phone}</p>
+      <p><strong>Service:</strong> ${msg.service}</p>
+      <p><strong>Message:</strong> ${msg.message}</p>
+      ${msg.filePath ? `<p><a href="${msg.filePath}" download>Download File</a></p>` : ""}
+    `;
 
-    function deleteOrder(id) {
-      if (!confirm("Delete this order?")) return;
+    openModal("messageModal");
+  }
 
-      fetch(`/order/delete/${id}`, { method:"POST" })
-        .then(r => r.json())
-        .then(d => { if (d.success) location.reload(); });
-    }
-    
+  /* ================== ORDERS ================== */
+  function markCompleted(id) {
+    fetch(`/order/complete/${id}`, { method: "POST" })
+      .then(r => r.json())
+      .then(d => d.success && location.reload());
+  }
+
+  function markPayment(id) {
+    fetch(`/order/payment/${id}`, { method: "POST" })
+      .then(r => r.json())
+      .then(d => d.success && location.reload());
+  }
+
+  function deleteOrder(id) {
+    if (!confirm("Delete this order?")) return;
+
+    fetch(`/order/delete/${id}`, { method: "POST" })
+      .then(r => r.json())
+      .then(d => d.success && location.reload());
+  }
+
+  /* ================== TESTIMONIALS ================== */
+  const testimonialForm = document.getElementById("testimonialForm");
+  const testimonialId = document.getElementById("testimonialId");
+  const testimonialAuthor = document.getElementById("testimonialAuthor");
+  const testimonialRating = document.getElementById("testimonialRating");
+  const testimonialReview = document.getElementById("testimonialReview");
+  const testimonialTitle = document.getElementById("testimonialTitle");
+
   function openTestimonialModal() {
-    document.getElementById("testimonialForm").reset();
-    document.getElementById("testimonialId").value = "";
-    document.getElementById("testimonialTitle").innerText = "Add Testimonial";
+    testimonialForm.reset();
+    testimonialId.value = "";
+    testimonialTitle.innerText = "Add Testimonial";
     openModal("testimonialModal");
   }
 
   function editTestimonial(t) {
-    document.getElementById("testimonialId").value = t._id;
-    document.getElementById("testimonialAuthor").value = t.author;
-    document.getElementById("testimonialRating").value = t.rating;
-    document.getElementById("testimonialReview").value = t.review;
-
-    document.getElementById("testimonialTitle").innerText = "Edit Testimonial";
+    testimonialId.value = t._id;
+    testimonialAuthor.value = t.author;
+    testimonialRating.value = t.rating;
+    testimonialReview.value = t.review;
+    testimonialTitle.innerText = "Edit Testimonial";
     openModal("testimonialModal");
   }
 
-  document.getElementById("testimonialForm").addEventListener("submit", e => {
+  testimonialForm.addEventListener("submit", e => {
     e.preventDefault();
 
-    const id = document.getElementById("testimonialId").value;
+    const url = testimonialId.value
+      ? `/testimonial/update/${testimonialId.value}`
+      : `/testimonial/create`;
 
-    fetch(id ? `/testimonial/update/${id}` : `/testimonial/create`, {
+    fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -788,8 +951,8 @@
         review: testimonialReview.value
       })
     })
-    .then(r => r.json())
-    .then(d => { if (d.success) location.reload(); });
+      .then(r => r.json())
+      .then(d => d.success && location.reload());
   });
 
   function deleteTestimonial(id) {
@@ -797,9 +960,65 @@
 
     fetch(`/testimonial/delete/${id}`, { method: "POST" })
       .then(r => r.json())
-      .then(d => { if (d.success) location.reload(); });
+      .then(d => d.success && location.reload());
+  }
+
+  /* ================== PROJECTS ================== */
+  const projectForm = document.getElementById("projectForm");
+  const projectId = document.getElementById("projectId");
+  const projectTitle = document.getElementById("projectTitle");
+  const projectDescription = document.getElementById("projectDescription");
+  const projectImage = document.getElementById("projectImage");
+  const projectOrder = document.getElementById("projectOrder");
+  const projectModalTitle = document.getElementById("projectModalTitle");
+
+  function openProjectModal() {
+    projectForm.reset();
+    projectId.value = "";
+    projectModalTitle.innerText = "Add Project";
+    openModal("projectModal");
+  }
+
+  function editProject(p) {
+    projectId.value = p._id;
+    projectTitle.value = p.title;
+    projectDescription.value = p.description;
+    projectImage.value = p.image;
+    projectOrder.value = p.order;
+    projectModalTitle.innerText = "Edit Project";
+    openModal("projectModal");
+  }
+
+  projectForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const url = projectId.value
+      ? `/project/update/${projectId.value}`
+      : `/project/create`;
+
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: projectTitle.value,
+        description: projectDescription.value,
+        image: projectImage.value,
+        order: projectOrder.value
+      })
+    })
+      .then(r => r.json())
+      .then(d => d.success && location.reload());
+  });
+
+  function deleteProject(id) {
+    if (!confirm("Delete this project?")) return;
+
+    fetch(`/project/delete/${id}`, { method: "POST" })
+      .then(r => r.json())
+      .then(d => d.success && location.reload());
   }
 </script>
+
 
 
 </body>

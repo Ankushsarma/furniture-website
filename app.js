@@ -6,14 +6,14 @@ const path = require("path");
 
 const app = express();
 
-/* ===================== MONGODB CONNECTION ===================== */
+/* ================= MONGODB ================= */
 mongoose.connect("mongodb://127.0.0.1:27017/WowModularDB")
-  .then(() => console.log("MongoDB connected"))
+  .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-/* ===================== MODELS ===================== */
+/* ================= MODELS ================= */
 
-// Contact / Work Orders Model
+// Contact / Work Orders
 const UploadSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -27,40 +27,49 @@ const UploadSchema = new mongoose.Schema({
   completed: { type: Boolean, default: false },
   paymentDone: { type: Boolean, default: false }
 });
-
 const Upload = mongoose.model("Upload", UploadSchema);
 
-// Testimonials Model
+// Testimonials
 const TestimonialSchema = new mongoose.Schema({
   author: String,
   rating: Number,
   review: String,
   createdAt: { type: Date, default: Date.now }
 });
-
 const Testimonial = mongoose.model("Testimonial", TestimonialSchema);
 
-/* ===================== VIEW ENGINE ===================== */
+// Projects
+const ProjectSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  imageUrl: String,
+  createdAt: { type: Date, default: Date.now }
+});
+const Project = mongoose.model("Project", ProjectSchema);
+
+/* ================= VIEW ENGINE ================= */
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-/* ===================== MIDDLEWARE ===================== */
+/* ================= MIDDLEWARE ================= */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-/* ===================== MULTER ===================== */
+/* ================= MULTER ================= */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads/"),
   filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname)
 });
 const upload = multer({ storage });
 
-/* ===================== ROUTES ===================== */
+/* ================= ROUTES ================= */
 
-// Home
-app.get("/", (req, res) => {
-  res.render("home");
+// Home Page
+app.get("/", async (req, res) => {
+  const projects = await Project.find().sort({ createdAt: -1 });
+  const testimonials = await Testimonial.find().sort({ createdAt: -1 });
+  res.render("home", { projects, testimonials });
 });
 
 // Contact Form
@@ -81,15 +90,16 @@ app.post("/contact", upload.single("designFile"), async (req, res) => {
 app.get("/admin", async (req, res) => {
   const messages = await Upload.find().sort({ uploadedAt: -1 });
   const testimonials = await Testimonial.find().sort({ createdAt: -1 });
+  const projects = await Project.find().sort({ createdAt: -1 });
 
   res.render("admin_panelv2", {
     messages,
-    testimonials
+    testimonials,
+    projects
   });
 });
 
-/* ===================== MESSAGE ACTIONS ===================== */
-
+/* ================= WORK ORDERS ================= */
 app.post("/accept/:id", async (req, res) => {
   await Upload.findByIdAndUpdate(req.params.id, { accepted: true });
   res.json({ success: true });
@@ -115,37 +125,39 @@ app.post("/order/delete/:id", async (req, res) => {
   res.json({ success: true });
 });
 
-/* ===================== TESTIMONIAL ROUTES ===================== */
-
-// Add Testimonial
+/* ================= TESTIMONIALS ================= */
 app.post("/testimonial/create", async (req, res) => {
-  await Testimonial.create({
-    author: req.body.author,
-    rating: req.body.rating,
-    review: req.body.review
-  });
+  await Testimonial.create(req.body);
   res.json({ success: true });
 });
 
-// Update Testimonial
 app.post("/testimonial/update/:id", async (req, res) => {
-  await Testimonial.findByIdAndUpdate(req.params.id, {
-    author: req.body.author,
-    rating: req.body.rating,
-    review: req.body.review
-  });
+  await Testimonial.findByIdAndUpdate(req.params.id, req.body);
   res.json({ success: true });
 });
 
-// Delete Testimonial
 app.post("/testimonial/delete/:id", async (req, res) => {
   await Testimonial.findByIdAndDelete(req.params.id);
   res.json({ success: true });
 });
 
-/* ===================== SERVER ===================== */
+/* ================= PROJECTS ================= */
+app.post("/project/create", async (req, res) => {
+  await Project.create(req.body);
+  res.json({ success: true });
+});
+
+app.post("/project/update/:id", async (req, res) => {
+  await Project.findByIdAndUpdate(req.params.id, req.body);
+  res.json({ success: true });
+});
+
+app.post("/project/delete/:id", async (req, res) => {
+  await Project.findByIdAndDelete(req.params.id);
+  res.json({ success: true });
+});
+
+/* ================= SERVER ================= */
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
-  console.log("http://localhost:3000/admin");
-  
 });
