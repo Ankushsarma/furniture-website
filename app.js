@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 const bodyParser = require("body-parser");
 const path = require("path");
-
+require("dotenv").config()
 const app = express();
 
 /* ================= MONGODB ================= */
-mongoose.connect("mongodb://127.0.0.1:27017/WowModularDB")
+mongoose.connect(process.env.URL)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
