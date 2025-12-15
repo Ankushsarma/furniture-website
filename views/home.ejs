@@ -1076,6 +1076,41 @@
         display: none;
       }
     }
+.more-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+
+  padding: 1.2rem 0;
+  margin: 2rem auto;
+
+  background-color: var(--primary);
+  color: var(--primary-fg);
+
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect */
+.more-btn:hover {
+  background-color: var(--accent);
+  color: var(--accent-fg);
+  transform: translateY(-2px);
+}
+
+/* Optional: active click effect */
+.more-btn:active {
+  transform: translateY(0);
+}
+
+
+
   </style>
 </head>
 <body>
@@ -1315,7 +1350,9 @@
         </div>
       </div>
     </div>
+ 
   </section>
+<a href="/projects" class="more-btn">More</a>
 
   <!-- About -->
   <section class="about section-padding" id="about">

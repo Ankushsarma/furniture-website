@@ -157,6 +157,10 @@ app.post("/project/delete/:id", async (req, res) => {
   res.json({ success: true });
 });
 
+app.get("/projects",async (req,res)=>{
+  res.render("projects_page");
+})
+
 /* ================= SERVER ================= */
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
