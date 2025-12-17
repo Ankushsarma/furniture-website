@@ -1108,7 +1108,35 @@
 .more-btn:active {
   transform: translateY(0);
 }
+.hidden-testimonial {
+  display: none;
+}
+.testimonialBtn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--accent-fg);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      margin-top: 40px;
+    }
 
+    .testimonialBtn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .testimonialBtn-container {
+      text-align: center;
+      margin-top: 30px;
+    }
 
 
   </style>
@@ -1400,37 +1428,57 @@
 
   <!-- Testimonials -->
   <section class="testimonials section-padding">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-label">Testimonials</p>
-        <h2 class="section-title">Hear From Our Happy Clients</h2>
-      </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card" style="animation-delay: 0s;">
-          <div class="stars">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p>Working with FurniNest was incredible! The custom furniture they designed exceeded my expectations. Professional service from start to finish.</p>
-          <div class="testimonial-author">Rahul Sharma</div>
-        </div>
-        <div class="testimonial-card" style="animation-delay: 0.2s;">
-          <div class="stars">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p>Impeccable craftsmanship and attention to detail. They transformed our living space into something truly special. Highly recommend their services!</p>
-          <div class="testimonial-author">Priya & Rahaan</div>
-        </div>
-      </div>
+  <div class="container">
+
+    <div class="section-header">
+      <p class="section-label">Testimonials</p>
+      <h2 class="section-title">Hear From Our Happy Clients</h2>
+
+      <p style="margin-top:0.5rem;font-size:0.95rem;color:#f3f3f3;">
+        ⭐ <strong><%= avgRating %></strong> average rating from
+        <strong><%= totalTestimonials %></strong> reviews
+      </p>
     </div>
-  </section>
+
+    <div class="testimonials-grid" id="testimonialGrid">
+
+      <% testimonials.forEach((t, index) => { %>
+        <div class="testimonial-card <%= index >= 6 ? 'hidden-testimonial' : '' %>"
+             style="animation-delay:<%= index * 0.1 %>s;">
+
+          <div class="stars">
+            <% for (let i = 1; i <= 5; i++) { %>
+              <svg width="20" height="20" viewBox="0 0 24 24"
+                   fill="<%= i <= t.rating ? 'currentColor' : 'none' %>"
+                   stroke="currentColor">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            <% } %>
+          </div>
+
+          <p><%= t.review %></p>
+
+          <div class="testimonial-author">
+            <%= t.author %>
+          </div>
+
+        </div>
+      <% }) %>
+
+    </div>
+
+    <% if (testimonials.length > 6) { %>
+      <div class="testimonialBtn-container">
+        <button id="viewMoreBtn" class="testimonialBtn" onclick="showAllTestimonials()">
+          View More Testimonials
+        </button>
+      </div>
+    <% } %>
+
+  </div>
+</section>
+
+
 
   <!-- FAQ -->
   <section class="faq section-padding">
@@ -1723,6 +1771,15 @@
         }
       });
     });
-  </script>
+
+  function showAllTestimonials() {
+    document
+      .querySelectorAll(".hidden-testimonial")
+      .forEach(card => card.style.display = "block");
+
+    document.getElementById("viewMoreBtn").style.display = "none";
+  }
+</script>
+
 </body>
 </html>

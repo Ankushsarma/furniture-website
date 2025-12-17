@@ -99,11 +99,27 @@ function uploadToGridFS(file) {
 /* ================= ROUTES ================= */
 
 // HOME
+// Home page
 app.get("/", async (req, res) => {
-  const projects = await Project.find().limit(6).sort({ createdAt: -1 });
   const testimonials = await Testimonial.find().sort({ createdAt: -1 });
-  res.render("home", { projects, testimonials });
+
+  const totalTestimonials = testimonials.length;
+
+  const avgRating =
+    totalTestimonials === 0
+      ? 0
+      : (
+          testimonials.reduce((sum, t) => sum + t.rating, 0) /
+          totalTestimonials
+        ).toFixed(1);
+
+  res.render("home", {
+    testimonials,
+    totalTestimonials,
+    avgRating
+  });
 });
+
 
 // CONTACT FORM
 app.post("/contact", upload.single("designFile"), async (req, res) => {
