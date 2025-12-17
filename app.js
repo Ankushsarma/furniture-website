@@ -53,13 +53,15 @@ const ProjectSchema = new mongoose.Schema({
   description: String,
   category: {
     type: String,
-    enum: ["living-room", "bedroom", "kitchen", "office", "dining"]
+    default: "living-room"
   },
-  imageUrl: String,         // GridFS file ID
-  originalFileName: String,
+  imageUrl: String,   // ✅ IMPORTANT
+  order: Number,
   createdAt: { type: Date, default: Date.now }
 });
+
 const Project = mongoose.model("Project", ProjectSchema);
+
 
 /* ================= VIEW ENGINE ================= */
 app.set("view engine", "ejs");
@@ -171,31 +173,42 @@ app.post("/testimonial/delete/:id", async (req, res) => {
 });
 
 /* ================= PROJECTS ================= */
-app.post("/project/create", upload.single("image"), async (req, res) => {
-  const imageId = await uploadToGridFS(req.file);
-
+app.post("/project/create", async (req, res) => {
   await Project.create({
     title: req.body.title,
     description: req.body.description,
-    category: req.body.category,
-    imageUrl: imageId.toString(),
-    originalFileName: req.file.originalname
+    category: req.body.category || "living-room",
+    imageUrl: req.body.image,   // 👈 admin sends "image"
+    order: req.body.order
   });
 
   res.json({ success: true });
 });
 
+
+app.post("/project/update/:id", async (req, res) => {
+  await Project.findByIdAndUpdate(req.params.id, {
+    title: req.body.title,
+    description: req.body.description,
+    category: req.body.category || "living-room",
+    imageUrl: req.body.image,
+    order: req.body.order
+  });
+
+  res.json({ success: true });
+});
+
+
+
+// DELETE PROJECT
 app.post("/project/delete/:id", async (req, res) => {
-  const project = await Project.findById(req.params.id);
-  if (project?.imageUrl) {
-    await gridfsBucket.delete(new mongoose.Types.ObjectId(project.imageUrl));
-  }
   await Project.findByIdAndDelete(req.params.id);
   res.json({ success: true });
 });
 
+// PROJECTS PAGE
 app.get("/projects", async (req, res) => {
-  const projects = await Project.find().sort({ createdAt: -1 });
+  const projects = await Project.find().sort({ order: 1 });
   res.render("projects", { projects });
 });
 
