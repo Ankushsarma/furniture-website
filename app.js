@@ -267,9 +267,7 @@ app.get("/uploads/download/:id", async (req, res) => {
 });
 
 /* ================= SERVER ================= */
-const PORT = process.env.PORT || 10000;
-const HOST = process.env.HOST || '0.0.0.0'; // Add this line
-
-app.listen(PORT, HOST, () => {
-  console.log(`Server running on http://${HOST}:${PORT}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
