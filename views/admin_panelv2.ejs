@@ -399,75 +399,100 @@
 
       <!-- =================== CONTACT MESSAGES =================== -->
       <section class="content-section" id="messages">
-        <div class="section-header">
-          <h2>Contact Messages</h2>
-        </div>
+  <div class="section-header">
+    <h2>Contact Messages</h2>
+  </div>
 
-        <div class="card">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Service</th>
-                <th>File</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
+  <div class="card">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Service</th>
+          <th>File</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
 
-            <tbody>
-              <% let pending=messages.filter(m=> !m.accepted); %>
+      <tbody>
+        <% const pending = messages.filter(m => !m.accepted); %>
 
-                <% if (pending.length===0) { %>
-                  <tr>
-                    <td colspan="8" style="text-align:center;padding:1rem;">No new messages</td>
-                  </tr>
-                  <% } %>
+        <% if (pending.length === 0) { %>
+          <tr>
+            <td colspan="8" style="text-align:center;padding:1rem;">
+              No new messages
+            </td>
+          </tr>
+        <% } %>
 
-                    <% pending.forEach(msg=> { %>
-                      <tr id="msg-<%= msg._id %>">
-                        <td>
-                          <%= new Date(msg.uploadedAt).toLocaleDateString() %>
-                        </td>
-                        <td>
-                          <%= msg.name %>
-                        </td>
-                        <td>
-                          <%= msg.email %>
-                        </td>
-                        <td>
-                          <%= msg.phone %>
-                        </td>
-                        <td>
-                          <%= msg.service %>
-                        </td>
+        <% pending.forEach(msg => { %>
+          <tr id="msg-<%= msg._id %>">
+            <td><%= new Date(msg.uploadedAt).toLocaleDateString() %></td>
+            <td><%= msg.name %></td>
+            <td><%= msg.email %></td>
+            <td><%= msg.phone %></td>
+            <td><%= msg.service %></td>
 
-                        <td>
-                          <% if (msg.filePath) { %>
-                            <span class="badge badge-progress">Yes</span>
-                            <% } else { %>
-                              <span class="badge badge-progress">No</span>
-                              <% } %>
-                        </td>
+            <!-- FILE COLUMN -->
+            <td>
+              <% if (msg.filePath) { %>
+                <a 
+                  href="/uploads/<%= msg.filePath %>" 
+                  target="_blank" 
+                  class="badge badge-info"
+                  style="margin-right:6px;"
+                >
+                  View
+                </a>
 
-                        <td><span class="badge badge-new">New</span></td>
+                <a 
+                  href="/uploads/download/<%= msg.filePath %>" 
+                  class="badge badge-success"
+                >
+                  Download
+                </a>
+              <% } else { %>
+                <span class="badge badge-secondary">No File</span>
+              <% } %>
+            </td>
 
-                        <td>
-                          <button class="action-btn btn-view" onclick="openMessageModal('<%= msg._id %>')">View</button>
-                          <button class="action-btn btn-edit" onclick="acceptMessage('<%= msg._id %>')">Accept</button>
-                          <button class="action-btn btn-delete"
-                            onclick="deleteMessage('<%= msg._id %>')">Delete</button>
-                        </td>
-                      </tr>
-                      <% }) %>
+            <td>
+              <span class="badge badge-new">New</span>
+            </td>
 
-            </tbody>
-          </table>
-        </div>
-      </section>
+            <td>
+              <button 
+                class="action-btn btn-view" 
+                onclick="openMessageModal('<%= msg._id %>')"
+              >
+                View
+              </button>
+
+              <button 
+                class="action-btn btn-edit" 
+                onclick="acceptMessage('<%= msg._id %>')"
+              >
+                Accept
+              </button>
+
+              <button 
+                class="action-btn btn-delete" 
+                onclick="deleteMessage('<%= msg._id %>')"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 
       <!-- =================== WORK ORDERS =================== -->
       <section class="content-section" id="orders">
@@ -726,7 +751,9 @@
                   <% projects.forEach(p=> { %>
                     <tr id="project-<%= p._id %>">
                       <td>
-                        <img src="<%= p.image %>" style="width:80px;border-radius:6px;">
+                        <img src="/image/<%= p.imageId %> style="width:80px;border-radius:6px;" />
+
+                        <!-- <img src="<%= p.image %>" style="width:80px;border-radius:6px;"> -->
                       </td>
                       <td>
                         <%= p.title %>

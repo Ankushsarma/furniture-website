@@ -12,6 +12,14 @@ mongoose.connect(process.env.URL)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
+let gridfsBucket;
+mongoose.connection.once("open", () => {
+  gridfsBucket = new mongoose.mongo.GridFSBucket(
+    mongoose.connection.db,
+    { bucketName: "uploads" }
+  );
+});
+
 /* ================= MODELS ================= */
 
 // CONTACT / WORK ORDERS
@@ -21,8 +29,8 @@ const UploadSchema = new mongoose.Schema({
   phone: String,
   service: String,
   message: String,
-  fileName: String,
-  filePath: String,
+  fileName: String,   // original filename
+  filePath: String,   // GridFS file ID
   uploadedAt: { type: Date, default: Date.now },
   accepted: { type: Boolean, default: false },
   completed: { type: Boolean, default: false },
@@ -41,14 +49,14 @@ const Testimonial = mongoose.model("Testimonial", TestimonialSchema);
 
 // PROJECTS
 const ProjectSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  description: { type: String, required: true },
+  title: String,
+  description: String,
   category: {
     type: String,
-    enum: ["living-room", "bedroom", "kitchen", "office", "dining"],
-    required: true
+    enum: ["living-room", "bedroom", "kitchen", "office", "dining"]
   },
-  imageUrl: { type: String, required: true },
+  imageUrl: String,         // GridFS file ID
+  originalFileName: String, // original filename
   createdAt: { type: Date, default: Date.now }
 });
 const Project = mongoose.model("Project", ProjectSchema);
@@ -60,14 +68,31 @@ app.set("views", path.join(__dirname, "views"));
 /* ================= MIDDLEWARE ================= */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 /* ================= MULTER ================= */
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname)
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 1 * 1024 * 1024 } // 1MB
 });
-const upload = multer({ storage });
+
+/* ================= GRIDFS HELPER ================= */
+async function uploadToGridFS(file) {
+  return new Promise((resolve, reject) => {
+    if (!file || !file.mimetype.startsWith("image/")) {
+      return reject("Only image files allowed");
+    }
+
+    const uploadStream = gridfsBucket.openUploadStream(
+      Date.now() + "-" + file.originalname,
+      { contentType: file.mimetype }
+    );
+
+    uploadStream.end(file.buffer);
+
+    uploadStream.on("finish", () => resolve(uploadStream.id));
+    uploadStream.on("error", reject);
+  });
+}
 
 /* ================= ROUTES ================= */
 
@@ -80,15 +105,19 @@ app.get("/", async (req, res) => {
 
 // CONTACT FORM
 app.post("/contact", upload.single("designFile"), async (req, res) => {
+  let fileId = null;
+  if (req.file) fileId = await uploadToGridFS(req.file);
+
   await Upload.create({
     name: req.body.name,
     email: req.body.email,
     phone: req.body.phone,
     service: req.body.service,
     message: req.body.message,
-    fileName: req.file ? req.file.filename : null,
-    filePath: req.file ? "/uploads/" + req.file.filename : null
+    fileName: req.file ? req.file.originalname : null,
+    filePath: fileId ? fileId.toString() : null
   });
+
   res.redirect("/");
 });
 
@@ -140,23 +169,73 @@ app.post("/testimonial/delete/:id", async (req, res) => {
 
 /* ================= PROJECTS ================= */
 app.post("/project/create", upload.single("image"), async (req, res) => {
+  const imageId = await uploadToGridFS(req.file);
+
   await Project.create({
     title: req.body.title,
     description: req.body.description,
     category: req.body.category,
-    imageUrl: "/uploads/" + req.file.filename
+    imageUrl: imageId.toString(),
+    originalFileName: req.file.originalname
   });
+
   res.json({ success: true });
 });
 
 app.post("/project/delete/:id", async (req, res) => {
-  await Project.findByIdAndDelete(req.params.id);
+  const project = await Project.findById(req.params.id);
+
+  if (project?.imageUrl) {
+    await gridfsBucket.delete(new mongoose.Types.ObjectId(project.imageUrl));
+    await project.deleteOne();
+  }
+
   res.json({ success: true });
 });
 
 app.get("/projects", async (req, res) => {
   const projects = await Project.find().sort({ createdAt: -1 });
   res.render("projects", { projects });
+});
+
+/* ================= IMAGE VIEW & DOWNLOAD ================= */
+
+// VIEW (inline)
+app.get("/uploads/:id", async (req, res) => {
+  try {
+    const fileId = new mongoose.Types.ObjectId(req.params.id);
+    const files = await gridfsBucket.find({ _id: fileId }).toArray();
+    if (!files || files.length === 0) return res.status(404).send("File not found");
+
+    const file = files[0];
+    res.set({
+      "Content-Type": file.contentType || "application/octet-stream",
+      "Content-Disposition": "inline; filename=\"" + (file.filename || "file") + "\""
+    });
+
+    gridfsBucket.openDownloadStream(fileId).pipe(res);
+  } catch {
+    res.status(400).send("Invalid file ID");
+  }
+});
+
+// DOWNLOAD (forces save with correct extension)
+app.get("/uploads/download/:id", async (req, res) => {
+  try {
+    const fileId = new mongoose.Types.ObjectId(req.params.id);
+    const files = await gridfsBucket.find({ _id: fileId }).toArray();
+    if (!files || files.length === 0) return res.status(404).send("File not found");
+
+    const file = files[0];
+    res.set({
+      "Content-Type": file.contentType || "application/octet-stream",
+      "Content-Disposition": `attachment; filename="${file.filename || "file"}"`
+    });
+
+    gridfsBucket.openDownloadStream(fileId).pipe(res);
+  } catch {
+    res.status(400).send("Invalid file ID");
+  }
 });
 
 /* ================= SERVER ================= */
