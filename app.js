@@ -10,7 +10,7 @@ const app = express();
 /* ================= MONGODB ================= */
 mongoose.connect(process.env.URL)
   .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+  .catch(err => console.error(err));
 
 let gridfsBucket;
 mongoose.connection.once("open", () => {
@@ -56,7 +56,7 @@ const ProjectSchema = new mongoose.Schema({
     enum: ["living-room", "bedroom", "kitchen", "office", "dining"]
   },
   imageUrl: String,         // GridFS file ID
-  originalFileName: String, // original filename
+  originalFileName: String,
   createdAt: { type: Date, default: Date.now }
 });
 const Project = mongoose.model("Project", ProjectSchema);
@@ -69,14 +69,14 @@ app.set("views", path.join(__dirname, "views"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-/* ================= MULTER ================= */
+/* ================= MULTER (1MB LIMIT) ================= */
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 1 * 1024 * 1024 } // 1MB
+  limits: { fileSize: 1 * 1024 * 1024 }
 });
 
 /* ================= GRIDFS HELPER ================= */
-async function uploadToGridFS(file) {
+function uploadToGridFS(file) {
   return new Promise((resolve, reject) => {
     if (!file || !file.mimetype.startsWith("image/")) {
       return reject("Only image files allowed");
@@ -126,7 +126,6 @@ app.get("/admin", async (req, res) => {
   const messages = await Upload.find().sort({ uploadedAt: -1 });
   const testimonials = await Testimonial.find().sort({ createdAt: -1 });
   const projects = await Project.find().sort({ createdAt: -1 });
-
   res.render("admin_panelv2", { messages, testimonials, projects });
 });
 
@@ -147,6 +146,10 @@ app.post("/order/payment/:id", async (req, res) => {
 });
 
 app.post("/order/delete/:id", async (req, res) => {
+  const msg = await Upload.findById(req.params.id);
+  if (msg?.filePath) {
+    await gridfsBucket.delete(new mongoose.Types.ObjectId(msg.filePath));
+  }
   await Upload.findByIdAndDelete(req.params.id);
   res.json({ success: true });
 });
@@ -184,12 +187,10 @@ app.post("/project/create", upload.single("image"), async (req, res) => {
 
 app.post("/project/delete/:id", async (req, res) => {
   const project = await Project.findById(req.params.id);
-
   if (project?.imageUrl) {
     await gridfsBucket.delete(new mongoose.Types.ObjectId(project.imageUrl));
-    await project.deleteOne();
   }
-
+  await Project.findByIdAndDelete(req.params.id);
   res.json({ success: true });
 });
 
@@ -198,19 +199,17 @@ app.get("/projects", async (req, res) => {
   res.render("projects", { projects });
 });
 
-/* ================= IMAGE VIEW & DOWNLOAD ================= */
-
-// VIEW (inline)
+/* ================= FILE VIEW ================= */
 app.get("/uploads/:id", async (req, res) => {
   try {
     const fileId = new mongoose.Types.ObjectId(req.params.id);
     const files = await gridfsBucket.find({ _id: fileId }).toArray();
-    if (!files || files.length === 0) return res.status(404).send("File not found");
+    if (!files.length) return res.status(404).send("File not found");
 
     const file = files[0];
     res.set({
-      "Content-Type": file.contentType || "application/octet-stream",
-      "Content-Disposition": "inline; filename=\"" + (file.filename || "file") + "\""
+      "Content-Type": file.contentType,
+      "Content-Disposition": `inline; filename="${file.filename}"`
     });
 
     gridfsBucket.openDownloadStream(fileId).pipe(res);
@@ -219,17 +218,17 @@ app.get("/uploads/:id", async (req, res) => {
   }
 });
 
-// DOWNLOAD (forces save with correct extension)
+/* ================= FILE DOWNLOAD ================= */
 app.get("/uploads/download/:id", async (req, res) => {
   try {
     const fileId = new mongoose.Types.ObjectId(req.params.id);
     const files = await gridfsBucket.find({ _id: fileId }).toArray();
-    if (!files || files.length === 0) return res.status(404).send("File not found");
+    if (!files.length) return res.status(404).send("File not found");
 
     const file = files[0];
     res.set({
-      "Content-Type": file.contentType || "application/octet-stream",
-      "Content-Disposition": `attachment; filename="${file.filename || "file"}"`
+      "Content-Type": file.contentType,
+      "Content-Disposition": `attachment; filename="${file.filename}"`
     });
 
     gridfsBucket.openDownloadStream(fileId).pipe(res);
