@@ -187,6 +187,8 @@
       overflow: hidden;
     }
 
+    
+
     .hero-carousel {
       position: absolute;
       top: 0;
@@ -229,6 +231,7 @@
       z-index: 2;
       text-align: center;
       animation: fadeInUp 0.6s ease-out;
+      overflow: visible;
     }
 
     .hero-title {
@@ -1214,7 +1217,7 @@
   <!-- Header -->
   <header>
     <div class="header-container">
-      <div class="logo">Wow Modular</div>
+      <a href="#home" style="text-decoration: none;" class="logo">Wow Modular</a>
       <nav>
         <a href="#home">Home</a>
         <a href="#about">About</a>
@@ -1222,7 +1225,7 @@
         <a href="#portfolio">Portfolio</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button class="cta-btn">Let's Talk</button>
+      <!-- <button class="cta-btn">Let's Talk</button> -->
       <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
@@ -1253,11 +1256,13 @@
       </div>
     </div>
     <div class="hero-overlay"></div>
-    <div class="hero-content container">
+    <div class="hero-content ">
       <h1 class="hero-title">Every Detail,<br><span class="accent">Pure Excellence</span></h1>
       <p class="hero-subtitle">Unlock the premium furniture and design services<br>that takes everything to the next
         level</p>
-      <button class="hero-btn">Explore Services</button>
+      <!-- <button class="hero-btn">Explore Services</button> -->
+       <a href="#services" class="hero-btn">Explore Services</a>
+
     </div>
   </section>
 
