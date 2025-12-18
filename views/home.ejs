@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wow Modular - Premium Furniture Solutions</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --bg-light: hsl(30 100% 98%);
@@ -34,7 +37,12 @@
       overflow-x: hidden;
     }
 
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       font-family: 'Playfair Display', serif;
     }
 
@@ -53,25 +61,27 @@
     header {
       position: fixed;
       top: 0;
-      left: 0;
-      right: 0;
-      height: 80px;
+      width: 100%;
+      max-width: 100vw;
       background: rgba(250, 247, 244, 0.8);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(215, 190, 165, 0.5);
       z-index: 50;
     }
 
+
     .header-container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 0 1.5rem;
-      height: 100%;
+      padding: 0 1rem;
+      height: 80px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
+      overflow-x: hidden;
     }
+
 
     .logo {
       font-size: 1.5rem;
@@ -385,7 +395,7 @@
       opacity: 0.1;
     }
 
-    .service-card > * {
+    .service-card>* {
       position: relative;
       z-index: 1;
     }
@@ -582,7 +592,7 @@
       left: 0;
       width: 100%;
       padding: 2rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
       color: white;
     }
 
@@ -1005,6 +1015,7 @@
         opacity: 0;
         transform: translateY(30px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -1076,42 +1087,45 @@
         display: none;
       }
     }
-.more-btn {
-  display: block;
-  width: 100%;
-  text-align: center;
 
-  padding: 1.2rem 0;
-  margin: 2rem auto;
+    .more-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
 
-  background-color: var(--primary);
-  color: var(--primary-fg);
+      padding: 1.2rem 0;
+      margin: 2rem auto;
 
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 600;
+      background-color: var(--primary);
+      color: var(--primary-fg);
 
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
 
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
 
-/* Hover effect */
-.more-btn:hover {
-  background-color: var(--accent);
-  color: var(--accent-fg);
-  transform: translateY(-2px);
-}
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
-/* Optional: active click effect */
-.more-btn:active {
-  transform: translateY(0);
-}
-.hidden-testimonial {
-  display: none;
-}
-.testimonialBtn {
+    /* Hover effect */
+    .more-btn:hover {
+      background-color: var(--accent);
+      color: var(--accent-fg);
+      transform: translateY(-2px);
+    }
+
+    /* Optional: active click effect */
+    .more-btn:active {
+      transform: translateY(0);
+    }
+
+    .hidden-testimonial {
+      display: none;
+    }
+
+    .testimonialBtn {
       display: inline-block;
       padding: 14px 32px;
       background: rgba(255, 255, 255, 0.2);
@@ -1137,10 +1151,9 @@
       text-align: center;
       margin-top: 30px;
     }
-
-
   </style>
 </head>
+
 <body>
   <!-- Header -->
   <header>
@@ -1186,7 +1199,8 @@
     <div class="hero-overlay"></div>
     <div class="hero-content container">
       <h1 class="hero-title">Every Detail,<br><span class="accent">Pure Excellence</span></h1>
-      <p class="hero-subtitle">Unlock the premium furniture and design services<br>that takes everything to the next level</p>
+      <p class="hero-subtitle">Unlock the premium furniture and design services<br>that takes everything to the next
+        level</p>
       <button class="hero-btn">Explore Services</button>
     </div>
   </section>
@@ -1213,76 +1227,134 @@
       <div class="services-layout">
         <div class="description-card">
           <h3>Complete Furniture Solutions for Your Space</h3>
-          <p>We provide comprehensive furniture services from concept to installation. Our team specializes in creating custom designs that reflect your style while ensuring the highest quality craftsmanship.</p>
-          <p>Whether you need a complete home makeover or specific furniture pieces, we deliver professional results that exceed expectations.</p>
+          <p>We provide comprehensive furniture services from concept to installation. Our team specializes in creating
+            custom designs that reflect your style while ensuring the highest quality craftsmanship.</p>
+          <p>Whether you need a complete home makeover or specific furniture pieces, we deliver professional results
+            that exceed expectations.</p>
           <ul class="feature-list">
             <li>
-              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
               Custom Design & Build
             </li>
             <li>
-              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
               Expert Installation
             </li>
             <li>
-              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
               Full Consultation & Support
             </li>
           </ul>
         </div>
-        
+
         <div class="services-grid">
-          <div class="service-card" data-image="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop">
+          <div class="service-card"
+            data-image="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop">
             <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M3 9h18M9 21V9" />
+              </svg>
             </div>
             <h3>Custom<br>Design</h3>
           </div>
-          <div class="service-card" data-image="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=400&h=400&fit=crop">
+          <div class="service-card"
+            data-image="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=400&h=400&fit=crop">
             <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+              </svg>
             </div>
             <h3>Installation</h3>
           </div>
-          <div class="service-card" data-image="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&h=400&fit=crop">
+          <div class="service-card"
+            data-image="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&h=400&fit=crop">
             <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18" />
+                <line x1="7" y1="2" x2="7" y2="22" />
+                <line x1="17" y1="2" x2="17" y2="22" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <line x1="2" y1="7" x2="7" y2="7" />
+                <line x1="2" y1="17" x2="7" y2="17" />
+                <line x1="17" y1="17" x2="22" y2="17" />
+                <line x1="17" y1="7" x2="22" y2="7" />
+              </svg>
             </div>
             <h3>Interior<br>Styling</h3>
           </div>
-          <div class="service-card" data-image="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400&h=400&fit=crop">
+          <div class="service-card"
+            data-image="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400&h=400&fit=crop">
             <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+              </svg>
             </div>
             <h3>Repair &<br>Maintenance</h3>
           </div>
-          <div class="service-card" data-image="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=400&fit=crop">
+          <div class="service-card"
+            data-image="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=400&fit=crop">
             <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
             </div>
             <h3>Consultation</h3>
           </div>
-          <div class="service-card" data-image="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400&h=400&fit=crop">
+          <div class="service-card"
+            data-image="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400&h=400&fit=crop">
             <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
             </div>
             <h3>Renovation</h3>
           </div>
-          <div class="service-card" data-image="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=400&fit=crop">
+          <div class="service-card"
+            data-image="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=400&fit=crop">
             <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
             </div>
             <h3>Sourcing</h3>
           </div>
-          <div class="service-card" data-image="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=400&h=400&fit=crop">
+          <div class="service-card"
+            data-image="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=400&h=400&fit=crop">
             <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                <line x1="12" y1="22.08" x2="12" y2="12" />
+              </svg>
             </div>
             <h3>Delivery<br>Setup</h3>
           </div>
-          <div class="service-card" data-image="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&h=400&fit=crop">
+          <div class="service-card"
+            data-image="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&h=400&fit=crop">
             <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12.01" y2="8" />
+              </svg>
             </div>
             <h3>Design<br>Consultation</h3>
           </div>
@@ -1301,35 +1373,54 @@
       <div class="process-grid">
         <div class="process-step" style="animation-delay: 0s;">
           <div class="process-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
           </div>
           <h3>Consultation</h3>
           <p>Understanding your vision and requirements</p>
         </div>
         <div class="process-step" style="animation-delay: 0.1s;">
           <div class="process-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
           </div>
           <h3>Concept Design</h3>
           <p>Creating detailed plans and 3D visualizations</p>
         </div>
         <div class="process-step" style="animation-delay: 0.2s;">
           <div class="process-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18" />
+              <line x1="7" y1="2" x2="7" y2="22" />
+              <line x1="17" y1="2" x2="17" y2="22" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+            </svg>
           </div>
           <h3>Material Selection</h3>
           <p>Choosing premium quality materials</p>
         </div>
         <div class="process-step" style="animation-delay: 0.3s;">
           <div class="process-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+            </svg>
           </div>
           <h3>Manufacturing</h3>
           <p>Expert craftsmanship in action</p>
         </div>
         <div class="process-step" style="animation-delay: 0.4s;">
           <div class="process-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="1" y="3" width="15" height="13" />
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+              <circle cx="5.5" cy="18.5" r="2.5" />
+              <circle cx="18.5" cy="18.5" r="2.5" />
+            </svg>
           </div>
           <h3>Delivery & Setup</h3>
           <p>Professional installation and finishing</p>
@@ -1359,7 +1450,8 @@
         <div class="project-card" style="animation-delay: 0.15s;">
           <div class="project-number">02</div>
           <div class="project-image">
-            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&h=450&fit=crop" alt="Project 2">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&h=450&fit=crop"
+              alt="Project 2">
           </div>
           <div class="project-overlay">
             <h3>Contemporary Dining Space</h3>
@@ -1369,7 +1461,8 @@
         <div class="project-card" style="animation-delay: 0.3s;">
           <div class="project-number">03</div>
           <div class="project-image">
-            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&h=450&fit=crop" alt="Project 3">
+            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&h=450&fit=crop"
+              alt="Project 3">
           </div>
           <div class="project-overlay">
             <h3>Master Bedroom Suite</h3>
@@ -1378,9 +1471,9 @@
         </div>
       </div>
     </div>
- 
+
   </section>
-<a href="/projects" class="more-btn">More</a>
+  <a href="/projects" class="more-btn">More</a>
 
   <!-- About -->
   <section class="about section-padding" id="about">
@@ -1390,32 +1483,44 @@
           <div class="section-header" style="text-align: left;">
             <p class="section-label">Custom Designs</p>
             <h2 class="section-title">Build Your Dream Home with the Best Furniture Company</h2>
-            <p class="section-desc" style="margin-left: 0;">We blend innovative designs with traditional craftsmanship to create furniture that tells your unique story and suits your lifestyle. Excellence is our standard.</p>
+            <p class="section-desc" style="margin-left: 0;">We blend innovative designs with traditional craftsmanship
+              to create furniture that tells your unique story and suits your lifestyle. Excellence is our standard.</p>
           </div>
         </div>
         <div>
           <div class="benefit-card">
             <h3>
               <div class="benefit-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
               </div>
               Premium Quality
             </h3>
-            <p>We use only the finest materials and employ skilled craftsmen to ensure exceptional quality in every piece.</p>
+            <p>We use only the finest materials and employ skilled craftsmen to ensure exceptional quality in every
+              piece.</p>
           </div>
           <div class="benefit-card">
             <h3>
               <div class="benefit-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15l-2-2m0 0l-2-2m2 2l2-2m-2 2l-2 2M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0Z"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 15l-2-2m0 0l-2-2m2 2l2-2m-2 2l-2 2M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0Z" />
+                  <path
+                    d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                </svg>
               </div>
               Expert Installation
             </h3>
-            <p>Professional installation services ensure your furniture is perfectly set up and ready to enjoy from day one.</p>
+            <p>Professional installation services ensure your furniture is perfectly set up and ready to enjoy from day
+              one.</p>
           </div>
           <div class="benefit-card">
             <h3>
               <div class="benefit-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
               </div>
               On-Time Delivery
             </h3>
@@ -1428,55 +1533,61 @@
 
   <!-- Testimonials -->
   <section class="testimonials section-padding">
-  <div class="container">
+    <div class="container">
 
-    <div class="section-header">
-      <p class="section-label">Testimonials</p>
-      <h2 class="section-title">Hear From Our Happy Clients</h2>
+      <div class="section-header">
+        <p class="section-label">Testimonials</p>
+        <h2 class="section-title">Hear From Our Happy Clients</h2>
 
-      <p style="margin-top:0.5rem;font-size:0.95rem;color:#f3f3f3;">
-        ⭐ <strong><%= avgRating %></strong> average rating from
-        <strong><%= totalTestimonials %></strong> reviews
-      </p>
-    </div>
-
-    <div class="testimonials-grid" id="testimonialGrid">
-
-      <% testimonials.forEach((t, index) => { %>
-        <div class="testimonial-card <%= index >= 6 ? 'hidden-testimonial' : '' %>"
-             style="animation-delay:<%= index * 0.1 %>s;">
-
-          <div class="stars">
-            <% for (let i = 1; i <= 5; i++) { %>
-              <svg width="20" height="20" viewBox="0 0 24 24"
-                   fill="<%= i <= t.rating ? 'currentColor' : 'none' %>"
-                   stroke="currentColor">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-              </svg>
-            <% } %>
-          </div>
-
-          <p><%= t.review %></p>
-
-          <div class="testimonial-author">
-            <%= t.author %>
-          </div>
-
-        </div>
-      <% }) %>
-
-    </div>
-
-    <% if (testimonials.length > 6) { %>
-      <div class="testimonialBtn-container">
-        <button id="viewMoreBtn" class="testimonialBtn" onclick="showAllTestimonials()">
-          View More Testimonials
-        </button>
+        <p style="margin-top:0.5rem;font-size:0.95rem;color:#f3f3f3;">
+          ⭐ <strong>
+            <%= avgRating %>
+          </strong> average rating from
+          <strong>
+            <%= totalTestimonials %>
+          </strong> reviews
+        </p>
       </div>
-    <% } %>
 
-  </div>
-</section>
+      <div class="testimonials-grid" id="testimonialGrid">
+
+        <% testimonials.forEach((t, index)=> { %>
+          <div class="testimonial-card <%= index >= 6 ? 'hidden-testimonial' : '' %>"
+            style="animation-delay:<%= index * 0.1 %>s;">
+
+            <div class="stars">
+              <% for (let i=1; i <=5; i++) { %>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="<%= i <= t.rating ? 'currentColor' : 'none' %>"
+                  stroke="currentColor">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                <% } %>
+            </div>
+
+            <p>
+              <%= t.review %>
+            </p>
+
+            <div class="testimonial-author">
+              <%= t.author %>
+            </div>
+
+          </div>
+          <% }) %>
+
+      </div>
+
+      <% if (testimonials.length> 6) { %>
+        <div class="testimonialBtn-container">
+          <button id="viewMoreBtn" class="testimonialBtn" onclick="showAllTestimonials()">
+            View More Testimonials
+          </button>
+        </div>
+        <% } %>
+
+    </div>
+  </section>
 
 
 
@@ -1490,37 +1601,49 @@
         <div class="faq-item">
           <button class="faq-question">
             <span>Do you provide furniture designs?</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
           </button>
           <div class="faq-answer">
-            <p>Yes, we offer complete custom furniture design services tailored to your space and preferences. Our design team works closely with you to create pieces that match your vision.</p>
+            <p>Yes, we offer complete custom furniture design services tailored to your space and preferences. Our
+              design team works closely with you to create pieces that match your vision.</p>
           </div>
         </div>
         <div class="faq-item">
           <button class="faq-question">
             <span>What materials do you use?</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
           </button>
           <div class="faq-answer">
-            <p>We use premium quality materials including solid wood, engineered wood, metal, and high-grade upholstery fabrics. All materials are carefully selected for durability and aesthetics.</p>
+            <p>We use premium quality materials including solid wood, engineered wood, metal, and high-grade upholstery
+              fabrics. All materials are carefully selected for durability and aesthetics.</p>
           </div>
         </div>
         <div class="faq-item">
           <button class="faq-question">
             <span>How long does the process take?</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
           </button>
           <div class="faq-answer">
-            <p>Timeline varies based on project complexity. Standard pieces take 4-6 weeks, while custom designs may require 8-12 weeks from consultation to delivery.</p>
+            <p>Timeline varies based on project complexity. Standard pieces take 4-6 weeks, while custom designs may
+              require 8-12 weeks from consultation to delivery.</p>
           </div>
         </div>
         <div class="faq-item">
           <button class="faq-question">
             <span>Do you provide warranty?</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
           </button>
           <div class="faq-answer">
-            <p>Yes, all our furniture comes with a comprehensive warranty covering manufacturing defects. We also offer maintenance services to keep your furniture in perfect condition.</p>
+            <p>Yes, all our furniture comes with a comprehensive warranty covering manufacturing defects. We also offer
+              maintenance services to keep your furniture in perfect condition.</p>
           </div>
         </div>
       </div>
@@ -1539,76 +1662,85 @@
         <div class="contact-info">
           <div class="contact-card">
             <div class="contact-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
             </div>
             <h3>Visit Us</h3>
             <p>Mumbai, Maharashtra<br>India - 400001</p>
           </div>
           <div class="contact-card">
             <div class="contact-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
             </div>
             <h3>Call Us</h3>
             <p>+91 98765 43210<br>Mon-Sat: 9AM - 7PM</p>
           </div>
           <div class="contact-card">
             <div class="contact-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
             </div>
             <h3>Email Us</h3>
             <p>info@wowmodular.com<br>support@wowmodular.com</p>
           </div>
         </div>
         <div class="contact-form-wrapper">
-  <form class="contact-form" action="/contact" method="POST" enctype="multipart/form-data">
+          <form class="contact-form" action="/contact" method="POST" enctype="multipart/form-data">
 
-    <div class="form-group">
-      <input type="text" name="name" placeholder="Your Name" required>
-    </div>
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Your Name" required>
+            </div>
 
-    <div class="form-group">
-      <input type="email" name="email" placeholder="Your Email" required>
-    </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Your Email" required>
+            </div>
 
-    <div class="form-group">
-      <input type="tel" name="phone" placeholder="Your Phone" required>
-    </div>
+            <div class="form-group">
+              <input type="tel" name="phone" placeholder="Your Phone" required>
+            </div>
 
-    <div class="form-group">
-      <select name="service" required>
-        <option value="">Select Service</option>
-        <option value="custom">Custom Design</option>
-        <option value="installation">Installation</option>
-        <option value="consultation">Consultation</option>
-        <option value="renovation">Renovation</option>
-      </select>
-    </div>
+            <div class="form-group">
+              <select name="service" required>
+                <option value="">Select Service</option>
+                <option value="custom">Custom Design</option>
+                <option value="installation">Installation</option>
+                <option value="consultation">Consultation</option>
+                <option value="renovation">Renovation</option>
+              </select>
+            </div>
 
-    <div class="form-group">
-      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-    </div>
+            <div class="form-group">
+              <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            </div>
 
-    <div class="form-group">
-      <div class="file-upload-wrapper">
-        <label for="designFile" class="file-upload-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="17 8 12 3 7 8"/>
-            <line x1="12" y1="3" x2="12" y2="15"/>
-          </svg>
-          <span>Upload Design File (Optional)</span>
-        </label>
+            <div class="form-group">
+              <div class="file-upload-wrapper">
+                <label for="designFile" class="file-upload-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" y1="3" x2="12" y2="15" />
+                  </svg>
+                  <span>Upload Design File (Optional)</span>
+                </label>
 
-        <!-- Only change: added name="designFile" -->
-        <input type="file" id="designFile" name="designFile"
-               class="file-upload-input" accept=".pdf,.jpg,.jpeg,.png,.dwg">
-        <div class="file-name" id="fileName"></div>
-      </div>
-    </div>
+                <!-- Only change: added name="designFile" -->
+                <input type="file" id="designFile" name="designFile" class="file-upload-input"
+                  accept=".pdf,.jpg,.jpeg,.png,.dwg">
+                <div class="file-name" id="fileName"></div>
+              </div>
+            </div>
 
-    <button type="submit" class="submit-btn">Send Message</button>
-  </form>
-</div>
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+        </div>
       </div>
     </div>
   </section>
@@ -1642,13 +1774,23 @@
           <h4>Follow Us</h4>
           <div class="social-icons">
             <div class="social-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
             </div>
             <div class="social-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+              </svg>
             </div>
             <div class="social-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
             </div>
           </div>
         </div>
@@ -1661,25 +1803,27 @@
 
   <!-- WhatsApp Button -->
   <a href="https://wa.me/9182198034" class="whatsapp-btn" target="_blank">
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
   </a>
 
   <script>
-  document.getElementById("designFile").addEventListener("change", function() {
-    const fileName = document.getElementById("fileName");
-    if (this.files.length > 0) {
-      fileName.innerText = this.files[0].name;
-    } else {
-      fileName.innerText = "";
-    }
-  });
-</script>
+    document.getElementById("designFile").addEventListener("change", function () {
+      const fileName = document.getElementById("fileName");
+      if (this.files.length > 0) {
+        fileName.innerText = this.files[0].name;
+      } else {
+        fileName.innerText = "";
+      }
+    });
+  </script>
 
   <script>
     // Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    
+
     mobileMenuBtn.addEventListener('click', () => {
       mobileMenu.classList.toggle('active');
       mobileMenuBtn.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
@@ -1696,27 +1840,27 @@
     // Hero Carousel
     let currentSlide = 0;
     const slides = document.querySelectorAll('.hero-slide');
-    
+
     function nextSlide() {
       slides[currentSlide].classList.remove('active');
       currentSlide = (currentSlide + 1) % slides.length;
       slides[currentSlide].classList.add('active');
     }
-    
+
     setInterval(nextSlide, 4000);
 
     // Service Cards Auto Hover
     const serviceCards = document.querySelectorAll('.service-card');
     let autoHoverIndex = 0;
-    
+
     function autoHover() {
       serviceCards.forEach(card => card.classList.remove('auto-hover'));
       serviceCards[autoHoverIndex].classList.add('auto-hover');
       autoHoverIndex = (autoHoverIndex + 1) % serviceCards.length;
     }
-    
+
     setInterval(autoHover, 2500);
-    
+
     serviceCards.forEach((card, index) => {
       const img = card.getAttribute('data-image');
       if (img) {
@@ -1729,7 +1873,7 @@
         `;
         document.head.appendChild(beforeStyle);
       }
-      
+
       card.addEventListener('mouseenter', () => {
         serviceCards.forEach(c => c.classList.remove('auto-hover'));
       });
@@ -1738,7 +1882,7 @@
     // File Upload Display
     const fileInput = document.getElementById('designFile');
     const fileName = document.getElementById('fileName');
-    
+
     fileInput.addEventListener('change', (e) => {
       if (e.target.files.length > 0) {
         fileName.textContent = `Selected: ${e.target.files[0].name}`;
@@ -1749,7 +1893,7 @@
 
     // FAQ Accordion
     const faqItems = document.querySelectorAll('.faq-item');
-    
+
     faqItems.forEach(item => {
       const question = item.querySelector('.faq-question');
       question.addEventListener('click', () => {
@@ -1763,7 +1907,7 @@
 
     // Smooth Scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
@@ -1772,14 +1916,15 @@
       });
     });
 
-  function showAllTestimonials() {
-    document
-      .querySelectorAll(".hidden-testimonial")
-      .forEach(card => card.style.display = "block");
+    function showAllTestimonials() {
+      document
+        .querySelectorAll(".hidden-testimonial")
+        .forEach(card => card.style.display = "block");
 
-    document.getElementById("viewMoreBtn").style.display = "none";
-  }
-</script>
+      document.getElementById("viewMoreBtn").style.display = "none";
+    }
+  </script>
 
 </body>
+
 </html>
