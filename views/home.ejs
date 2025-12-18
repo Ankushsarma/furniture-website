@@ -24,7 +24,14 @@
       --radius: 1.875rem;
     }
 
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     * {
+      min-width: 0;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -1038,7 +1045,7 @@
     }
 
     @media (max-width: 768px) {
-      nav {
+      header>.header-container nav {
         display: none;
       }
 
@@ -1056,37 +1063,20 @@
         flex: 1;
         position: relative;
         top: 0;
-        min-width: 100%;
+        min-width: 0;
+        max-width: 100%;
       }
 
-      .services-grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      }
-
-      .service-card {
-        min-height: 140px;
-        padding: 1rem 0.75rem;
-      }
-
-      .service-icon {
-        width: 3rem;
-        height: 3rem;
-        margin-bottom: 0.75rem;
-      }
-
-      .service-icon svg {
-        width: 20px;
-        height: 20px;
-      }
-
-      .process-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .contact-form-wrapper {
+        max-width: 100%;
+        overflow-x: hidden;
       }
 
       .cta-btn {
         display: none;
       }
     }
+
 
     .more-btn {
       display: block;
@@ -1151,6 +1141,72 @@
       text-align: center;
       margin-top: 30px;
     }
+
+    @media (max-width: 768px) {
+      .description-card {
+        position: relative;
+        top: 0;
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .services::before,
+      .services::after {
+        display: none;
+      }
+
+      .whatsapp-btn {
+        right: 1rem;
+        bottom: 1rem;
+        width: 3.5rem;
+        height: 3.5rem;
+      }
+    }
+
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: clip;
+    }
+
+    img,
+    svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    img, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Fix grids that overflow on small screens */
+.process-grid {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Safety for containers */
+.container {
+  overflow-x: hidden;
+}
+
+.contact-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;        /* allow wrapping */
+}
+
+.contact-card h3,
+.contact-card p {
+  flex: 1 1 100%;         /* force text below icon on small widths */
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+
   </style>
 </head>
 
